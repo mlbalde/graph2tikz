@@ -23,7 +23,7 @@ namespace GraphToTIKZ
         {
             lstRepoStyles.Items.Clear();
 
-            foreach (DrawObjectStyleBool k in StyleRepo.styles)
+            foreach (StyleRepoEntry k in StyleRepo.styles)
             {
                 ListViewItem lvi = lstRepoStyles.Items.Add(k.dos.name);
                 //lvi.Checked = k.l;
@@ -64,7 +64,7 @@ namespace GraphToTIKZ
             }
             else
             {
-                DrawObjectStyleBool dosb = StyleRepo.findStyle(cOld);
+                StyleRepoEntry dosb = StyleRepo.findStyle(cOld);
                 dosb.dos.name = cNew;
             }
 
@@ -88,7 +88,7 @@ namespace GraphToTIKZ
         {
             foreach (ListViewItem lvi in lstRepoStyles.SelectedItems)
             {
-                DrawObjectStyleBool dosb = StyleRepo.findStyle(lvi.Text);
+                StyleRepoEntry dosb = StyleRepo.findStyle(lvi.Text);
                 dosb.l = !dosb.l;
                 if (dosb.l)
                     lvi.SubItems[2].Text = "Yes";
@@ -100,7 +100,7 @@ namespace GraphToTIKZ
         {
             foreach (ListViewItem lvi in lstRepoStyles.SelectedItems)
             {
-                DrawObjectStyleBool dosb = StyleRepo.findStyle(lvi.Text);
+                StyleRepoEntry dosb = StyleRepo.findStyle(lvi.Text);
                 if (G.styles.ContainsKey(dosb.dos.name))
                 {
                     if (G.styles[dosb.dos.name].type != dosb.dos.type)
@@ -118,6 +118,7 @@ namespace GraphToTIKZ
                 foreach (DrawObject o in G.objlist.Values)
                     o.style = G.styles[o.style.name];
             }
+            Close();
         }
 
         private void lstRepoStyles_KeyDown(object sender, KeyEventArgs e)

@@ -6,17 +6,16 @@
 not seen
 \vfill
 \begin{tikzpicture}[scale=1,
-vert/.style={draw,outer sep=0,inner sep=0,minimum size=5,shape=circle,fill},
+vert/.style={draw,outer sep=0,inner sep=0,minimum size=5,fill},
 helper/.style={outer sep=0,inner sep=0,minimum size=5,shape=coordinate},
-default edge/.style={draw}]
+default edge/.style={draw,>->},
+temp/.style={draw,outer sep=0,inner sep=0,minimum size=14,shape=circle}]
 
 \draw (0,0) rectangle (15,10);
-\node (v0) at (7.5,8) [vert,label=90:Hallo $1\pm 42$] {};
-\node (v1) at (3.5,6.5) [vert] {};
-\node (v2) at (4.5,3.5) [vert] {};
-\node (v3) at (10,3.5) [vert] {};
+\node (v0) at (4,8) [vert] {Hallo Welt};
+\node (v1) at (6.512,6.012) [temp] {};
 
-
+\draw[default edge] (v1)--(v0);
 \end{tikzpicture}
 
 \end{document}

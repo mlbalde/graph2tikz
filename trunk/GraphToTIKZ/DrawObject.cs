@@ -13,6 +13,34 @@ using System.Drawing.Drawing2D;
 
 namespace GraphToTIKZ
 {
+    public class myControl : Control
+    {
+        public void setdbuffer()
+        {
+            SetStyle(ControlStyles.DoubleBuffer |
+                 ControlStyles.UserPaint |
+                 ControlStyles.AllPaintingInWmPaint
+                 , true);
+        }
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            // Calling the base class OnPaint
+
+            base.OnPaint(pe);
+            // Create two semi-transparent colors
+
+            /*   Color c1 = Color.FromArgb
+                     (m_color1Transparent, m_color1);
+                 Color c2 = Color.FromArgb
+                     (m_color2Transparent, m_color2);
+                 Brush b = new System.Drawing.Drawing2D.LinearGradientBrush
+                     (ClientRectangle, c1, c2, 10);
+                 pe.Graphics.FillRectangle(b, ClientRectangle);
+                 b.Dispose();*/
+        }
+
+    }
+
     public enum DOType { V, E, U } // vertex or edge or unknown
 
     [Serializable]
@@ -210,10 +238,31 @@ namespace GraphToTIKZ
                 return (float)(s.Height / (2 * Math.Abs(sina)));
         }
 
+        /// <summary>
+        /// Determines the extend of the framerect in the direction specified by the vector t.
+        /// </summary>
+        /// <param name="t">The direction. Must not be the null vector</param>
+        /// <returns>The distance, measured in units (length of t)</returns>
+        public double getBBRadius(PointD t)
+        {
+            if (style.shape == vshape.circle)
+                return (framerect.Width / (2*t.Norm()));
+            else if (style.shape == vshape.rectangle)
+            {
+                // determine which side the intersection point is on 
+                if (Math.Abs(t.X * framerect.Height) > Math.Abs(t.Y * framerect.Width))
+                    return (framerect.Width / (2 * Math.Abs(t.X)));
+                else
+                    return (framerect.Height / (2 * Math.Abs(t.Y)));
+            }
+            else 
+                return 0;
+        }
+
         public override string getTikzString(double cy)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("\\node (v{0}) at ({1},{2}) [{3}", new object[] { id, x, cy - y, style.name });
+            sb.AppendFormat("\\node (v{0}) at ({1:G4},{2:G4}) [{3}", new object[] { id, x, cy - y, style.name });
 
             if (label != "")
                 sb.Append(",label=" + labelangle + ":" + label);
@@ -245,6 +294,8 @@ namespace GraphToTIKZ
         public override DOType type { get { return DOType.E; } }
         public vertex from, to;
         public PointD fromp = new PointD(), top = new PointD();
+        public int inangle=0, outangle=0;
+        public bool useinoutangle=false;
         public string abovelabel="", belowlabel="";
         Image img_abovelabel = null, img_belowlabel = null;
 
@@ -271,8 +322,11 @@ namespace GraphToTIKZ
             {
                 p = pdraw;
             }
-            p.DashStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            p.DashPattern = Consts.TikzToSystemDashPattern[(int)style.dashstyle];
+            if (style.dashstyle != TikzDashStyle.solid)
+            {
+                p.DashStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+                p.DashPattern = Consts.TikzToSystemDashPattern[(int)style.dashstyle];
+            }
             //p.StartCap = LineCap.Triangle;
             //p.EndCap = LineCap.ArrowAnchor;
             if (style.fromTip != TikzArrowTip.none)
@@ -282,6 +336,20 @@ namespace GraphToTIKZ
 
             fromp = new PointD(pixelperunit * scale * from.x, pixelperunit * scale * from.y);
             top   = new PointD(pixelperunit * scale * to.x, pixelperunit * scale * to.y);
+            
+            // adjust fromp/top by taking into account the extend of the source/target vertices
+            PointD t = top - fromp;
+            double l1 = to.getBBRadius(-t), l2 = from.getBBRadius(t);
+            if (l1 + l2 >= 1)
+            {
+                top = fromp = fromp + (.5 * t);
+                return;
+            }
+            else
+            {
+                top = top - l1 * t;
+                fromp = fromp + l2 * t;
+            }
             
             g.DrawLine(p, (PointF)fromp, (PointF)top);
             // draw the text
@@ -488,35 +556,6 @@ namespace GraphToTIKZ
         public string typedescr { get { return "V"; } }
     }
     */
-
-
-    public class myControl : Control
-    {
-        public void setdbuffer()
-        {
-            SetStyle(ControlStyles.DoubleBuffer |
-                 ControlStyles.UserPaint |
-                 ControlStyles.AllPaintingInWmPaint
-                 , true);
-        }
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            // Calling the base class OnPaint
-
-            base.OnPaint(pe);
-            // Create two semi-transparent colors
-
-            /*   Color c1 = Color.FromArgb
-                     (m_color1Transparent, m_color1);
-                 Color c2 = Color.FromArgb
-                     (m_color2Transparent, m_color2);
-                 Brush b = new System.Drawing.Drawing2D.LinearGradientBrush
-                     (ClientRectangle, c1, c2, 10);
-                 pe.Graphics.FillRectangle(b, ClientRectangle);
-                 b.Dispose();*/
-        }
-
-    }
 
 
 }

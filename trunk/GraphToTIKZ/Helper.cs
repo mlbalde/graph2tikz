@@ -37,12 +37,16 @@ namespace GraphToTIKZ
 
         public const string cSettingsFile = "T2Gsettings.xml";
         public const string cMRUFile = "T2GMRU.xml";
-        public static int MaxMRU = 10;
+        public const int MaxMRU = 10;
         public const string cStyleRepoFile = "StyleRepo.dat";
 
-        public static float selecttoler = .01F;
-        public static float drawXsize = .25F; // drawn for invisible vertices
-        public static float coordvertexsize = .25F; // size of size zero vertex (to ease selection)
+        public const string CoordinateVertexStyleName = "helper";
+
+        public const string DoubleFormat = "#.####";
+
+        public const float selecttoler = .01F;
+        public const float drawXsize = .1F; // drawn for invisible vertices
+        public const float coordvertexsize = .25F; // size of size zero vertex (to ease selection)
 
         //const string cLatex = "Pdflatex";
         //string cLatexPath = "pdflatex"; //@"C:\Program Files\MiKTeX 2.8\miktex\bin\pdfplatex.exe";
@@ -81,6 +85,21 @@ namespace GraphToTIKZ
         [DllImport("User32.dll")]
         public static extern Boolean EnumChildWindows(IntPtr hWndParent, Delegate lpEnumFunc, int lParam);
 
+        // Import GetFocus() from user32.dll
+        [DllImport("user32.dll", CharSet = CharSet.Auto,
+           CallingConvention = CallingConvention.Winapi)]
+        public static extern IntPtr GetFocus();
+
+        public static Control GetFocusControl()
+        {
+            Control focusControl = null;
+            IntPtr focusHandle = GetFocus();
+            if (focusHandle != IntPtr.Zero)
+                // returns null if handle is not to a .NET control
+                focusControl = Control.FromHandle(focusHandle);
+            return focusControl;
+        } 
+
         public static void GeneratePrecompiledHeaders()
         {
             StreamWriter s = new StreamWriter(Consts.cTempImgFile + "pre.tex");
@@ -108,7 +127,7 @@ namespace GraphToTIKZ
 
     }
 
-
+    [Serializable]
     public class PointD
     {
         public double X = 0, Y = 0;
@@ -154,20 +173,43 @@ namespace GraphToTIKZ
         {
             return new PointD(p.X, p.Y);
         }
-
+        public double Norm()
+        {
+            return Math.Sqrt(X * X + Y * Y);
+        }
+        public static PointD operator +(PointD a, PointD b)
+        {
+            return new PointD(a.X + b.X, a.Y + b.Y);
+        }
+        public static PointD operator -(PointD a, PointD b)
+        {
+            return new PointD(a.X - b.X, a.Y - b.Y);
+        }
+        public static PointD operator *(double lambda, PointD a)
+        {
+            return new PointD(a.X *lambda, a.Y*lambda);
+        }
+        public static PointD operator *(PointD a, double lambda)
+        {
+            return lambda * a;
+        }
+        public static PointD operator -(PointD a)
+        {
+            return new PointD(-a.X, -a.Y);
+        }
     }
 
     public static class Rasterizer
     {
-        public static void DrawEuclRaster(Graphics g, float width, float height, float xstep, float ystep)
+        public static void DrawEuclRaster(Graphics g, double width, double height, double xstep, double ystep)
         {
             if (xstep <= 0 || ystep <= 0)
                 return;
             Pen p = new Pen(Color.LightGray, 0); //1.0F / g.Transform.Elements[0]);
-            for (float x = 0; x < width; x += xstep)
-                g.DrawLine(p, x, 0, x, height);
-            for (float y = 0; y < width; y += ystep)
-                g.DrawLine(p, 0, y, width, y);
+            for (float x = 0; x < width; x += (float)xstep)
+                g.DrawLine(p, x, 0, x, (float)height);
+            for (float y = 0; y < height; y += (float)ystep)
+                g.DrawLine(p, 0, y, (float)width, y);
             /*  int cex = Convert.ToInt32(radialcenter.X * pixelperunit*G.scale),
                           cey = Convert.ToInt32(radialcenter.Y * pixelperunit*G.scale);
                       for (int i = 0; i < 360; i += step)
@@ -182,7 +224,7 @@ namespace GraphToTIKZ
                       } */
         }
 
-        public static void DrawPolarRaster(Graphics g, float width, float height, PointF center, float rstep, int nsectors)
+        public static void DrawPolarRaster(Graphics g, double width, double height, PointD center, double rstep, int nsectors)
         {
             if (rstep <= 0 || nsectors <= 0)
                 return;
@@ -190,26 +232,26 @@ namespace GraphToTIKZ
             for (int i = 0; i < nsectors; i++)
             {
                 PointF pp = (PointF)PointD.polartoeucl(width + height, i * 2 * Math.PI / nsectors, center);
-                g.DrawLine(p, center, pp);
+                g.DrawLine(p, (PointF)center, pp);
             }
-            for (float r = 0; r < width + height; r += rstep)
+            for (float r = 0; r < width + height; r += (float)rstep)
             {
-                g.DrawEllipse(p, center.X - r, center.Y - r, 2 * r, 2 * r);
+                g.DrawEllipse(p, (float)center.X - r, (float)center.Y - r, 2 * r, 2 * r);
             }
 
         }
 
-        public static PointF rasterizeEucl(PointF p, float xstep, float ystep)
+        public static PointD rasterizeEucl(PointD p, double xstep, double ystep)
         {
-            return new PointF((float)Math.Round(p.X / xstep) * xstep, (float)Math.Round(p.Y / ystep) * ystep);
+            return new PointD(Math.Round(p.X / xstep) * xstep, Math.Round(p.Y / ystep) * ystep);
         }
         // input: p in Eucl. coordinates
-        public static PointF rasterizePolar(PointF p, PointD center, float rstep, int nsectors)
+        public static PointD rasterizePolar(PointD p, PointD center, double rstep, int nsectors)
         {
             PointD pp = PointD.eucltopolar(p, center);
             pp.X = Math.Round(pp.X / rstep) * rstep;
             pp.Y = Math.Round(pp.Y * nsectors / (2 * Math.PI)) * 2 * Math.PI / nsectors;
-            return (PointF)PointD.polartoeucl(pp, center);
+            return PointD.polartoeucl(pp, center);
         }
 
     }
@@ -322,11 +364,11 @@ namespace GraphToTIKZ
     }
 
     [Serializable]
-    public class DrawObjectStyleBool
+    public class StyleRepoEntry
     {
         public DrawObjectStyle dos;
         public bool l;
-        public DrawObjectStyleBool(DrawObjectStyle tdos, bool tl)
+        public StyleRepoEntry(DrawObjectStyle tdos, bool tl)
         {
             dos = tdos; l = tl;
         }
@@ -334,7 +376,7 @@ namespace GraphToTIKZ
 
     public static class StyleRepo
     {
-        public static List<DrawObjectStyleBool> styles = new List<DrawObjectStyleBool>();
+        public static List<StyleRepoEntry> styles = new List<StyleRepoEntry>();
         static frmStyleRepo stylesForm = new frmStyleRepo();
 
         static IEnumerable<DrawObjectStyle> default_styles
@@ -349,7 +391,7 @@ namespace GraphToTIKZ
                 try
                 {
                     BinaryFormatter bFormatter = new BinaryFormatter();
-                    styles = (List<DrawObjectStyleBool>)bFormatter.Deserialize(stream);
+                    styles = (List<StyleRepoEntry>)bFormatter.Deserialize(stream);
                 }
                 catch (Exception e)
                 {
@@ -364,12 +406,12 @@ namespace GraphToTIKZ
 
         public static void DeleteStyle(string cname)
         {
-            DrawObjectStyleBool dosb = findStyle(cname);
+            StyleRepoEntry dosb = findStyle(cname);
             if (dosb != null)
                 styles.Remove(dosb);
         }
 
-        public static DrawObjectStyleBool findStyle(string cname)
+        public static StyleRepoEntry findStyle(string cname)
         {
             return styles.Find(v => (v.dos.name == cname));
         }
@@ -377,7 +419,7 @@ namespace GraphToTIKZ
         public static bool AddStyle(DrawObjectStyle dos)
         {
             // Check if style exists and ask user whether to replace
-            DrawObjectStyleBool st = findStyle(dos.name);
+            StyleRepoEntry st = findStyle(dos.name);
             bool oldDef = false;
             if (st != null)
             {
@@ -388,7 +430,7 @@ namespace GraphToTIKZ
                 styles.Remove(st);
             }
 
-            styles.Add(new DrawObjectStyleBool(dos, oldDef));
+            styles.Add(new StyleRepoEntry(dos.copy(), oldDef));
             return true;
         }
 

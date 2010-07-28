@@ -55,6 +55,11 @@ namespace GraphToTIKZ
             dos.draw = Color.Black;
             styles.Add(dos.name, dos);
         }
+        public void AddObject(DrawObject o)
+        {
+            o.id = idcnt++;
+            objlist.Add(o.id, o);
+        }
         public void Draw(Graphics g, int pixelperunit, bool useimgs)
         {
             // draw edges
@@ -124,12 +129,9 @@ namespace GraphToTIKZ
             {
                 DrawObject o = oldo.copy();
                 o.id = idcnt++;
-                if (o is vertex)
-                {
-                    // reset style references
-                    vertex v = o as vertex;
-                    v.style = styles[v.style.name];
-                }
+                // reset style references
+                o.style = styles[o.style.name];
+                
                 oldidtonewobject.Add(oldo.id, o);
                 objlist.Add(o.id, o);
             } 
@@ -142,13 +144,32 @@ namespace GraphToTIKZ
                     ed.to = (vertex)oldidtonewobject[ed.to.id];
                 }
         }
-        public TikzGraph GetSelectedSubgraph() // no deepcopy!!!
+        /// <summary>
+        /// Returns the selected subgraph, including unselected vertices incident to selected edges.
+        /// Does not perfom a deepcopy!!
+        /// </summary>
+        /// <returns></returns>
+        public TikzGraph GetSelectedSubgraph()
         {
             TikzGraph res = (TikzGraph) MemberwiseClone();
             res.objlist = new Dictionary<int, DrawObject>();
             foreach (DrawObject o in objlist.Values)
+            {
                 if (o.selected)
+                {
                     res.objlist.Add(o.id, o);
+                    // add vertices incident to selected edges
+                    if (o is edge)
+                    {
+                        edge ed = o as edge;
+                        if (!res.objlist.ContainsKey(ed.to.id))
+                            res.objlist.Add(ed.to.id, ed.to);
+                        if (!res.objlist.ContainsKey(ed.from.id))
+                            res.objlist.Add(ed.from.id, ed.from);
+                    }
+                }
+            }
+            
 
             return res;            
         }
@@ -201,7 +222,7 @@ namespace GraphToTIKZ
 
                 si.Add(dos.getTikzString());
             }
-            sb.AppendLine("\\begin{tikzpicture}[scale="+scale+","); //TODO: cx, cy
+            sb.AppendLine("\\begin{tikzpicture}[scale=" + scale.ToString(Consts.DoubleFormat) + ","); //TODO: cx, cy
             sb.AppendLine(String.Join(",\r\n", si) + "]");
             sb.AppendLine("");
             if (ldrawBB)

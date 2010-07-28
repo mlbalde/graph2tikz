@@ -27,3 +27,17 @@ C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\GraphToTIKZ\bi
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.AboutBox1.resources
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\GraphToTIKZ\bin\Debug\Dotnetrix.TabControl.dll
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.frmStyleRepo.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.exe
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.pdb
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\GraphToTIKZ.exe
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\GraphToTIKZ.pdb
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\Antlr3.Runtime.xml
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\Antlr3.Utility.xml
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.AboutBox1.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.Form1.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.frmStyleRepo.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.Properties.Resources.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.Resource1.resources
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GenerateResource.write.1.tlog
