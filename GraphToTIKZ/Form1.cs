@@ -32,7 +32,7 @@ namespace GraphToTIKZ
         cTool curTool = cTool.Move;
 
         // when a drag operation is started, contains the relative position of the cursor to the nearest marked vertex (=selvert)
-        PointF dragOffset=new PointF();
+        PointD dragOffset=new PointD();
         int selvert = -1;
         // control the display of the selection rectangle
         Point selrectorig, selrectend;
@@ -60,11 +60,24 @@ namespace GraphToTIKZ
         // the current resolution including the zoomfactor
         int pixelperunit = base_pixperunit;
         // the size, in tikz units (i.e., cm) of the grid drawn
-        float rastersize = .5F;
+        double rastersize = .5;
 
         // indicates whether changes (that need to be saved) are made to the graph
-        bool lChangesMade = false;
-        
+        private bool m_lChangesMade = false;
+        bool lChangesMade
+        {
+            get { return m_lChangesMade; }
+            set
+            {
+                m_lChangesMade = value;
+                Text = "GraphToTikz: " + m_curFile;
+                if (m_lChangesMade)
+                    Text += "*";
+            }
+        }
+
+        bool lUserHasMovedSomething = false;
+
         bool lprocMuPdfStartedOnce = false;
         bool ImgRecompilationRunning = false;
         private bool m_recompileimgs=false;
@@ -101,6 +114,9 @@ namespace GraphToTIKZ
         // measured in graph units (i.e., including the G.scale)
         PointD radialcenter = new PointD(0, 0);
 
+        // is true when form is closing
+        bool WeAreClosing = false;
+
         // the currently loaded file, =Consts.defaultCurFile if not yet saved
         private string m_curFile = Consts.defaultCurFile;
         public string curFile
@@ -112,7 +128,7 @@ namespace GraphToTIKZ
             set
             {
                 m_curFile = value;
-                Text = "GraphToTikz: " + m_curFile;
+                lChangesMade = lChangesMade; // to set Text
                 if (m_curFile != Consts.defaultCurFile)
                     MRUs.Add(m_curFile);
                 
@@ -135,8 +151,8 @@ namespace GraphToTIKZ
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        PointF rasterize(float x, float y) { return rasterize(new PointF(x, y)); }
-        PointF rasterize(PointF p)
+        PointD rasterize(double x, double y) { return rasterize(new PointD(x, y)); }
+        PointD rasterize(PointD p)
         {
             if (rastersize == 0) return p; //dangerous, clone()?
             if (chkRadial.Checked)
@@ -155,14 +171,16 @@ namespace GraphToTIKZ
             InitializeComponent();
             drawme = new myControl();
             drawme.BackColor = Color.White;
-            drawme.Left = 0;
-            drawme.Top = 0;
+            //drawme.Left = 0;
+            //drawme.Top = 0;
+            //drawme.Anchor = AnchorStyles.None;
             drawme.Paint += drawme_Paint;
             drawme.MouseDown += drawme_MouseDown;
             drawme.MouseMove += drawme_MouseMove;
             drawme.MouseUp += drawme_MouseUp;
             drawme.setdbuffer();
-            splitContainer1.Panel1.Controls.Add(drawme);
+            //splitContainer1.Panel1.Controls.Add(drawme);
+            drawmepanel.Controls.Add(drawme);
 
             //Enum.GetValues(typeof(vclass));
             cmbVertexType.DataSource = Enum.GetValues(typeof(vshape));// typeof(vclass)..ToExtendedList<int>();
@@ -309,7 +327,8 @@ namespace GraphToTIKZ
             // Occurs when user has changed the graph... not after undo/redo
             if (chkAutoUpdate.Checked)
                 recompile = true;
-
+            lChangesMade = true;
+            actionUpdateTikzCode(); // for now
         }
 
         private void chkAutoUpdate_CheckedChanged(object sender, EventArgs e)
@@ -324,8 +343,8 @@ namespace GraphToTIKZ
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 vertex v;
-                PointF location = new PointF(e.Location.X / (float)pixelperunit, e.Location.Y / (float)pixelperunit);
-                PointF rasterp = rasterize(location);
+                PointD location = new PointD(e.Location.X / (double)pixelperunit, e.Location.Y / (double)pixelperunit);
+                PointD rasterp = rasterize(location);
                 switch (curTool)
                 {
                     case cTool.Move:
@@ -345,27 +364,17 @@ namespace GraphToTIKZ
                         drawme.Invalidate();
                         break;
                     case cTool.AddVert:
-                        v = new vertex();
-                        v.x = rasterp.X / G.scale;
-                        v.y = rasterp.Y / G.scale;
-                        v.id = G.idcnt++;
-
-                        if (lstStyles.SelectedItems.Count > 0 && getselstyle().type == DOType.V)
-                            v.style = getselstyle();
-                        else
-                        {
-                            v.style = G.GetFirstStyle(DOType.V); //[lstStyles.Items[0].Text]; //TODO:Achtung
-                        }
-                        //vertices.Add(v.id, v);
+ 
                         BeforeGraphChange();
-                        G.objlist.Add(v.id, v);
+                        AddVertexAt(rasterp);
                         OnGraphChanged();
                         drawme.Invalidate();
                         if (!ModifierKeys.HasFlag(Keys.Control))
                             selectTool(cTool.Move);
                         break;
                     case cTool.AddEdge:
-                        if (G.vertfromxy(location.X, location.Y, out v))
+                        bool vertexhit = G.vertfromxy(location.X, location.Y, out v);
+                        if (vertexhit || (selvert >=0 && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift) ) ) )
                         {
                             if (selvert < 0)
                             {
@@ -374,28 +383,48 @@ namespace GraphToTIKZ
                             }
                             else
                             {
+                                BeforeGraphChange();
+
+                                // in case ctrl or shift pressed, make a star or path, i.e., add a vertex at mouse position
+                                if (!vertexhit)
+                                {
+                                    v = AddVertexAt(rasterp); 
+                                }
+
                                 // add an edge
                                 edge ed = new edge();
-                                ed.id = G.idcnt++;
                                 ed.from = G.objlist[selvert] as vertex;
                                 ed.to = v;
-                                if (lstStyles.SelectedItems.Count > 0 && getselstyle().type == DOType.E)
-                                    ed.style = getselstyle();
-                                else
-                                {
-                                    ed.style = G.GetFirstStyle(DOType.E); //[lstStyles.Items[0].Text]; //TODO:Achtung
-                                }
+                                // use the currently checked edge style
+                                foreach (ListViewItem lvi in lstStyles.CheckedItems)
+                                    if (lvi.Checked && lvi.Group.Name == "E")
+                                    {
+                                        ed.style = G.styles[lvi.Text];
+                                    }
+                                if (ed.style == null)
+                                    throw new Exception("no style selected");
+                                //if (lstStyles.SelectedItems.Count > 0 && getselstyle().type == DOType.E)
+                                //    ed.style = getselstyle();
+                                //else
+                                //{
+                                //    ed.style = G.GetFirstStyle(DOType.E); //[lstStyles.Items[0].Text]; //TODO:Achtung
+                                //}
                                 //edges.Add(ed);
-                                BeforeGraphChange();
-                                G.objlist.Add(ed.id, ed);
-                                setselvert( -1);
+                                
+                                G.AddObject(ed);
+                                if (ModifierKeys.HasFlag(Keys.Control)) // make a path
+                                    setselvert(v.id);
+                                else if (!ModifierKeys.HasFlag(Keys.Shift))
+                                    setselvert( -1);
+                                    // otherwise just do nothing -> make a star
+                                    
                                 OnGraphChanged();
                                 drawme.Invalidate();
                             }
                         }
                         else
                         {
-                            setselvert (-1);
+                            setselvert(-1);
                             drawme.Invalidate();
                         }
                         break;
@@ -454,9 +483,10 @@ namespace GraphToTIKZ
         private void drawme_MouseUp(object sender, MouseEventArgs e)
         {
             showselrect = false;
-            if (curTool == cTool.Move)
+            if (curTool == cTool.Move && lUserHasMovedSomething)
             {
-                //selvert = -1;
+                lUserHasMovedSomething = false;
+                OnGraphChanged();
             }
             drawme.Invalidate();
 
@@ -489,8 +519,15 @@ namespace GraphToTIKZ
             if (selvert >= 0 && curTool == cTool.Move && e.Button==MouseButtons.Left)
             {
                 vertex v = G.objlist[selvert] as vertex;
-                PointF rasterp = rasterize((e.Location.X - dragOffset.X)/pixelperunit, (e.Location.Y - dragOffset.Y)/pixelperunit);
-                double dx = (double)rasterp.X / (G.scale) - v.x, dy = (double)rasterp.Y / (G.scale ) - v.y;
+                PointD rasterp = rasterize((e.Location.X - dragOffset.X)/pixelperunit, (e.Location.Y - dragOffset.Y)/pixelperunit);
+                double dx = rasterp.X / (G.scale) - v.x, dy = rasterp.Y / (G.scale ) - v.y;
+
+                //if (dx>0) 
+                //    dx=dx;
+                // set an undo point... but only one undo per drag operation
+                if (!lUserHasMovedSomething)
+                    BeforeGraphChange();
+
                 foreach (DrawObject o in G.objlist.Values)
                 {
                     if (o is vertex && o.selected)
@@ -500,6 +537,7 @@ namespace GraphToTIKZ
                     }
                 }
                 //selrectorig = e.Location;
+                lUserHasMovedSomething = true;
                 drawme.Invalidate();
             }
             // adjust mouse cursor when over selected items
@@ -514,17 +552,45 @@ namespace GraphToTIKZ
             */
         }
 
+        // pos is in screen coordinates, not involving G.scale
+        vertex AddVertexAt(PointD pos)
+        {
+            vertex v = new vertex();
+            v.x = pos.X / G.scale;
+            v.y = pos.Y / G.scale;
+
+            // use the currently checked edge style
+            foreach (ListViewItem lvi in lstStyles.CheckedItems)
+                if (lvi.Checked && lvi.Group.Name == "V")
+                {
+                    v.style = G.styles[lvi.Text];
+                }
+            if (v.style == null)
+                throw new Exception("no style selected");
+
+            /*if (cstyle != "")
+                v.style = G.styles[cstyle];
+            else if (lstStyles.SelectedItems.Count > 0 && getselstyle().type == DOType.V)
+                v.style = getselstyle();
+            else
+            {
+                v.style = G.GetFirstStyle(DOType.V); //[lstStyles.Items[0].Text]; //TODO:Achtung
+            }
+            */
+            G.AddObject(v);
+            return v;
+        }
 
         private void cmdGenCode_Click(object sender, EventArgs e)
         {
             txtCode.Text = G.getTikzString();
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+       /* private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            rastersize = (float)Double.Parse(cmbGridsize.Text);
+            rastersize = Double.Parse(cmbGridsize.Text);
             drawme.Invalidate();
-        }
+        }*/
 
         private void rbMove_CheckedChanged(object sender, EventArgs e)
         {
@@ -601,6 +667,28 @@ namespace GraphToTIKZ
             drawme.Invalidate();
         }
 
+        /// <summary>
+        /// Sets position and size of the container in which the graph is drawm (=drawme)
+        /// </summary>
+        void UpdatedrawmePosition()
+        {
+            drawme.Width = Convert.ToInt32(G.cx * G.scale * pixelperunit);
+            drawme.Height = Convert.ToInt32(G.cy * G.scale * pixelperunit);
+
+            CenterDrawme();
+        }
+        void CenterDrawme()
+        {
+            // center control
+            if (drawme.Width >= drawme.Parent.Width)
+                drawme.Left = 0;
+            else
+                drawme.Left = (drawme.Parent.Width - drawme.Width) / 2;
+            if (drawme.Height >= drawme.Parent.Height)
+                drawme.Top = 0;
+            else
+                drawme.Top = (drawme.Parent.Height - drawme.Height) / 2;
+        }
 
         private void cmbZoom_TextChanged(object sender, EventArgs e)
         {
@@ -611,18 +699,22 @@ namespace GraphToTIKZ
             if (Int32.TryParse(z, out zoomlevel))
             {
                 pixelperunit = base_pixperunit * zoomlevel / 100;
-                drawme.Width = Convert.ToInt32(G.cx * G.scale * pixelperunit);
-                drawme.Height = Convert.ToInt32(G.cy * G.scale * pixelperunit);
+                UpdatedrawmePosition();
                 drawme.Invalidate();
             }
         }
 
         private void chkRadial_CheckedChanged(object sender, EventArgs e)
         {
-            if (selvert >= 0)
+            if (G.GetSelCountV() >= 1)
             {
-                radialcenter.X = (G.objlist[selvert] as vertex).x*G.scale;
-                radialcenter.Y = (G.objlist[selvert] as vertex).y*G.scale;
+                vertex v;
+                if (selvert >= 0)
+                    v = G.objlist[selvert] as vertex;
+                else
+                    v = (vertex)G.objlist.Values.First(kvp => (kvp is vertex && kvp.selected));
+                radialcenter.X = v.x*G.scale;
+                radialcenter.Y = v.y*G.scale;
             }
             else
             {
@@ -637,7 +729,7 @@ namespace GraphToTIKZ
             double d;
             if (Double.TryParse(cmbGridsize.Text, out d))
             {
-                rastersize = (float)d;
+                rastersize = d;
                 drawme.Invalidate();
             }
         }
@@ -649,11 +741,18 @@ namespace GraphToTIKZ
         void RefreshStyleList()
         {
             lstStyles.Items.Clear();
+            lstStyles.Groups.Add("V", "Vertex Styles");
+            lstStyles.Groups.Add("E", "Edge Styles");
             foreach (DrawObjectStyle dos in G.styles.Values)
             {
                 //lstStyles.Items.Add(dos.name, dos.name, 0);
                 ListViewItem lvi = lstStyles.Items.Add(dos.name);
-                lvi.SubItems.Add(dos.type.ToString());
+                //lvi.SubItems.Add(dos.type.ToString());
+                lvi.Group = lstStyles.Groups[dos.type.ToString()];
+
+                // Check first Item in every group
+                if (lvi.Group.Items.Count == 1)
+                    lvi.Checked = true;
             }
             RefreshStyleDisplay();
         }
@@ -664,15 +763,15 @@ namespace GraphToTIKZ
             if (lstStyles.SelectedItems.Count == 0)
             {
                 
-                tabVStyle.Hide();
+                //tabVStyle.Hide();
                 //tabEStyle.Hide();
-                /*
+                
                  foreach (Control c in flowLPStyleProps.Controls)
                     if (c is Panel)
                     {
                         c.Visible = false;
                     }
-                 */
+                 
             }
             else
             {
@@ -682,7 +781,7 @@ namespace GraphToTIKZ
                     {
                         c.Visible = (c.Tag as string).Contains(dos.type.ToString());
                     }
-                tabVStyle.Show();
+                //tabVStyle.Show();
                     //else dos = new DrawObjectStyle();
 
                     /*       foreach (Control c in tabVStyle.Controls)
@@ -766,7 +865,7 @@ namespace GraphToTIKZ
        
         private void button4_Click_1(object sender, EventArgs e)
         {
-
+            drawme.Focus();
             AddStatusLine("Hallo Welt111", false);
 
 
@@ -898,19 +997,21 @@ namespace GraphToTIKZ
             numHeight.Value = (decimal)G.cy;
             lGraphUpdating = false;
         }
-        private bool ChangeCurrentGraph(TikzGraph newG)
+        private bool ChangeCurrentGraph(TikzGraph newG, bool ClearUndos = true)
         {
             //if (!TryDisposeGraph())
             //    return false;
             G = newG;
-            drawme.Width = Convert.ToInt32(G.cx * G.scale * pixelperunit);
-            drawme.Height = Convert.ToInt32(G.cy * G.scale * pixelperunit);
-            undos.Clear();
-            redos.Clear();
+            if (ClearUndos)
+            {
+                undos.Clear();
+                redos.Clear();
+            }
             setselvert(-1);
             RefreshStyleList();
             RefreshStyleDisplay();
             RefreshGraphTabpage();
+            UpdatedrawmePosition();
             drawme.Invalidate();
             return true;
         }
@@ -931,7 +1032,8 @@ namespace GraphToTIKZ
             BinaryFormatter bFormatter = new BinaryFormatter();
             bFormatter.Serialize(stream, G);
             stream.Close();
-
+            lChangesMade = false;
+            AddStatusLine("Graph saved to file " + curFile + ".");
             return true;
         }
 
@@ -940,7 +1042,8 @@ namespace GraphToTIKZ
         {
             if (lChangesMade)
             {
-                switch (MessageBox.Show("Save changes to " + curFile + "?", "Changes need to be saved", MessageBoxButtons.YesNoCancel))
+                switch (MessageBox.Show("Save changes to " + curFile + "?", "Changes need to be saved",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                 {
                     case (DialogResult.Yes):
                         if (!SaveCurFile()) return false;
@@ -963,6 +1066,8 @@ namespace GraphToTIKZ
             if (lprocMuPdfStartedOnce && !procMuPdf.HasExited)
                 procMuPdf.Kill();
             SaveSettings();
+
+            WeAreClosing = true;
         }
 
         void DoRecompilation()
@@ -1355,6 +1460,77 @@ namespace GraphToTIKZ
             deleteToolStripMenuItem.Visible = isstyleselected();
             assignToCurrentSelectionToolStripMenuItem.Visible = isstyleselected();
         }
+
+        private void splitContainer1_Panel1_Resize(object sender, EventArgs e)
+        {
+            if (drawme != null)
+                CenterDrawme();
+        }
+
+        private void action_Cut(object sender, EventArgs e)
+        {
+            actionCut();
+        }
+
+        private void lstStyles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+                actionChangeStyleName();
+        }
+
+        private void lstStyles_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            // Determine if label is changed by checking for null.
+            if (e.Label == null)
+                return;
+
+            string cNew = e.Label, cOld = lstStyles.Items[e.Item].Text;
+            if (cNew == "")
+            {
+                MessageBox.Show("Invalid style name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.CancelEdit = true;
+            }
+            else if (G.styles.ContainsKey(cNew))
+            {
+                MessageBox.Show(cNew + ": a style with that name already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.CancelEdit = true;
+            }
+            else
+            {
+                DrawObjectStyle dos = G.styles[cOld];
+                G.styles.Remove(dos.name);
+                dos.name = cNew;
+                G.styles.Add(dos.name, dos);
+                RefreshStyleList();
+            }
+        }
+
+        private void lstStyles_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (WeAreClosing || e.CurrentValue != CheckState.Checked)
+                return;
+            // Count checked items in grouo
+            int c = 0;
+            foreach (ListViewItem lvi in lstStyles.Items[e.Index].Group.Items)
+                if (lvi.Checked)
+                    c++;
+            if (c == 1) // we are trying to uncheck the sole checked item => prevent
+                e.NewValue = CheckState.Checked;
+        }
+
+        private void lstStyles_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (!e.Item.Checked || WeAreClosing) 
+                return;
+            
+            foreach (ListViewItem lvi in e.Item.Group.Items)
+            {
+                if (lvi != e.Item)
+                    lvi.Checked = false;
+            }
+            
+        }
+
 
 
     }

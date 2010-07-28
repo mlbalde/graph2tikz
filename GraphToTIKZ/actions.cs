@@ -98,18 +98,24 @@ namespace GraphToTIKZ
 
         void actionCut()
         {
-
+            if (Helper.GetFocusControl() is TextBoxBase)
+            {
+                TextBoxBase t = Helper.GetFocusControl() as TextBoxBase;
+                if (t.Enabled && !t.ReadOnly)
+                    t.Cut();
+            }
+            else
+            {
+                actionCopy();
+                actionDeleteSelection();
+            }
         }
 
         void actionCopy()
         {
-            if (txtCode.Focused)
+            if ( Helper.GetFocusControl() is TextBoxBase )
             {
-                txtCode.Copy();
-            }
-            else if (txtStatus.Focused)
-            {
-                txtStatus.Copy();
+                (Helper.GetFocusControl() as TextBoxBase).Copy();
             }
             else if (G.GetSelCount() > 0)
             {
@@ -119,7 +125,13 @@ namespace GraphToTIKZ
 
         void actionPaste()
         {
-            if (Clipboard.ContainsData("GraphToTikz"))
+            if (Helper.GetFocusControl() is TextBoxBase)
+            {
+                TextBoxBase t = Helper.GetFocusControl() as TextBoxBase;
+                if (t.Enabled && !t.ReadOnly)
+                    t.Paste();
+            }
+            else if (Clipboard.ContainsData("GraphToTikz"))
             {
                 G.deselectall();
                 //vertex v = (vertex)Clipboard.GetData("GraphToTikz");
@@ -136,63 +148,99 @@ namespace GraphToTIKZ
 
         void actionUndo()
         {
-            if (undos.Count < 1) return;
-            redos.Push(G);
-            ChangeCurrentGraph(undos.Pop());
+            if (Helper.GetFocusControl() is TextBoxBase)
+            {
+                (Helper.GetFocusControl() as TextBoxBase).Undo();
+            }
+            else
+            {
+                if (undos.Count < 1) return;
+                redos.Push(G);
+                ChangeCurrentGraph(undos.Pop(), false);
+                lChangesMade = true;
+            }
         }
 
         void actionRedo()
         {
+            /*if (Helper.GetFocusControl() is TextBoxBase)
+            {
+                (Helper.GetFocusControl() as TextBoxBase).Redo();
+            }
+            else
+            {*/
             if (redos.Count < 1) return;
-            undos.Push(G);
-            ChangeCurrentGraph(redos.Pop());
+                undos.Push(G);
+                ChangeCurrentGraph(redos.Pop(), false);
+                lChangesMade = true;
+            //}
         }
 
         void actionDeleteSelection()
         {
-            if (G.GetSelCount() <= 0) return;
-            // remove also all incoming edges
-            /*objlist.Remove
-            delegate(DrawObject o)
+            if (Helper.GetFocusControl() is TextBoxBase)
             {
-                if (!(objstyles is edge))
-                    return false;
-                edge ed = o as edge;
-                return (ed.from.id == selvert || ed.to.id == selvert);
-            });
-              */
-
-            for (int i = G.objlist.Count() - 1; i >= 0; i--)
-            {
-                DrawObject o = G.objlist.ElementAt(i).Value;
-                if (o.selected
-                    || (o is edge
-                                && (((edge)o).from.selected || ((edge)o).to.selected)))
-                {
-                    G.objlist.Remove(o.id);
-                }
+                TextBoxBase t = Helper.GetFocusControl() as TextBoxBase;
+                if (t.Enabled && !t.ReadOnly)
+                    t.SelectedText = "";
             }
+            else
+            {
+                if (G.GetSelCount() <= 0) return;
+                // remove also all incoming edges
+                /*objlist.Remove
+                delegate(DrawObject o)
+                {
+                    if (!(objstyles is edge))
+                        return false;
+                    edge ed = o as edge;
+                    return (ed.from.id == selvert || ed.to.id == selvert);
+                });
+                  */
 
-            setselvert(-1);
-            drawme.Invalidate();
+                for (int i = G.objlist.Count() - 1; i >= 0; i--)
+                {
+                    DrawObject o = G.objlist.ElementAt(i).Value;
+                    if (o.selected
+                        || (o is edge
+                                    && (((edge)o).from.selected || ((edge)o).to.selected)))
+                    {
+                        G.objlist.Remove(o.id);
+                    }
+                }
+
+                setselvert(-1);
+                drawme.Invalidate();
+            }
         }
 
         void actionNewStyle(DOType type = DOType.V)
         {
-            string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter (unique) style name:", "New Style", "MyStyle");
-            if (s == "") return;
-            if (G.styles.ContainsKey(s))
+            // find a unique stylename
+            int i=1;
+            string s = "New Style";
+            while (G.styles.ContainsKey(s))
             {
-                MessageBox.Show("Error: A style with this name is already present.", "Invalid style name", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                s = "New Style " + i++;
             }
+
+            //string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter (unique) style name:", "New Style", "MyStyle");
+            //if (s == "") return;
+            //if (G.styles.ContainsKey(s))
+            //{
+            //    MessageBox.Show("Error: A style with this name is already present.", "Invalid style name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
             DrawObjectStyle dos = new DrawObjectStyle();
             dos.name = s;
             dos.type = type;
             G.styles.Add(dos.name, dos);
             ListViewItem lvi = lstStyles.Items.Add(dos.name); //dos.name, dos.name,0);
-            lvi.SubItems.Add(dos.type.ToString());
-            
+            //lvi.SubItems.Add(dos.type.ToString());
+            lvi.Group = lstStyles.Groups[type.ToString()];
+
+            lvi.Selected = true;
+            actionChangeStyleName();
         }
 
         void actionDeleteStyle()
@@ -230,23 +278,8 @@ namespace GraphToTIKZ
 
         void actionChangeStyleName()
         {
-            if (lstStyles.SelectedItems.Count <= 0) return;
-            DrawObjectStyle dos = getselstyle();
-            string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter (unique) style name:", "New Style name", dos.name);
-            if (s == "" || s == dos.name) return;
-            if (G.styles.ContainsKey(s))
-            {
-                MessageBox.Show("Error: A style with this name is already present.", "Invalid style name", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            G.styles.Remove(dos.name);
-            //int i = lstStyles.SelectedItems[0].Index;
-            //lstStyles.Items.Remove(lstStyles.SelectedItems[0]);
-            dos.name = s;
-            G.styles.Add(dos.name, dos);
-            //lstStyles.Items.Insert(i,dos.name, dos.name,0).Selected = true;
-            RefreshStyleList();
+            if (lstStyles.SelectedItems.Count > 0)
+                lstStyles.SelectedItems[0].BeginEdit();
         }
 
         void actionUpdateTikzCode()
@@ -276,6 +309,7 @@ namespace GraphToTIKZ
             StyleRepo.ShowRepo(G);
             RefreshStyleList();
             RefreshStyleDisplay();
+            drawme.Invalidate();
         }
     }
 
