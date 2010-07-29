@@ -64,14 +64,15 @@ namespace GraphToTIKZ
                 MessageBox.Show("Error: There is no text in the Clipboard.", "Error importing from Clipboard");
                 return;
             }
-            string s = Clipboard.GetText();
-            tikzgrammarLexer lex = new tikzgrammarLexer(new ANTLRStringStream(s));
-            CommonTokenStream tokens = new CommonTokenStream(lex);
-
-            tikzgrammarParser parser = new tikzgrammarParser(tokens);
-
             try
             {
+                string s = Clipboard.GetText();
+                tikzgrammarLexer lex = new tikzgrammarLexer(new ANTLRStringStream(s));
+                CommonTokenStream tokens = new CommonTokenStream(lex);
+
+                tikzgrammarParser parser = new tikzgrammarParser(tokens);
+
+
                 //tikzgrammarParser.expr_return r =
                 parser.tikzpicture();
 
@@ -92,6 +93,10 @@ namespace GraphToTIKZ
             {
                 MessageBox.Show("Failed to Parse Clipboard Text (maybe ill-formatted): " + ex.StackTrace);
                 //Console.Error.WriteLine(e.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to understand Clipboard Text (maybe ill-formatted): " + ex.StackTrace);
             }
             //Console.ReadLine();
         }

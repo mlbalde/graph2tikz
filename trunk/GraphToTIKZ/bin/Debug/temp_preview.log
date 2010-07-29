@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=temp_preview 2010.6.19)  28 JUL 2010 17:59
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=temp_preview 2010.6.19)  29 JUL 2010 13:45
 entering extended mode
 **temp_preview.tex
 
@@ -71,16 +71,16 @@ LaTeX Font Info:    ... okay on input line 3.
 ("C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\
 GraphToTIKZ\bin\Debug\temp_preview.aux") ) 
 Here is how much of TeX's memory you used:
- 339 strings out of 487007
- 5316 string characters out of 3037068
- 197904 words of memory out of 3000000
- 11659 multiletter control sequences out of 15000+200000
+ 328 strings out of 487007
+ 5149 string characters out of 3037068
+ 196904 words of memory out of 3000000
+ 11648 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 32i,6n,60p,151b,473s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,6n,60p,151b,466s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.8/fonts/ty
 pe1/public/amsfonts/cm/cmr10.pfb>
-Output written on temp_preview.pdf (1 page, 13088 bytes).
+Output written on temp_preview.pdf (1 page, 11662 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
