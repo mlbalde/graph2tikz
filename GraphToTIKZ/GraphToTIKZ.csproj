@@ -156,6 +156,10 @@
     <Content Include="Resources\109_AllAnnotations_Default_16x16_72.png" />
     <Content Include="Resources\edge.bmp" />
     <Content Include="Resources\empty.bmp" />
+    <Content Include="Resources\hand.bmp" />
+    <Content Include="Resources\handclosed.cur" />
+    <Content Include="Resources\handopen.cur" />
+    <Content Include="Resources\path.bmp" />
     <Content Include="Resources\radial.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

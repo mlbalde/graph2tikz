@@ -103,8 +103,10 @@
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.cmdSelectTool = new System.Windows.Forms.ToolStripButton();
+            this.cmdHandTool = new System.Windows.Forms.ToolStripButton();
             this.cmdVertexTool = new System.Windows.Forms.ToolStripButton();
             this.cmdEdgeTool = new System.Windows.Forms.ToolStripButton();
+            this.cmdPathTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.chkUseImgs = new System.Windows.Forms.ToolStripButton();
             this.cmdPreview = new System.Windows.Forms.ToolStripButton();
@@ -137,6 +139,15 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtText = new System.Windows.Forms.TextBox();
             this.tabEdge = new System.Windows.Forms.TabPage();
+            this.numOutAngle = new System.Windows.Forms.NumericUpDown();
+            this.numInAngle = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.chkUseInOutAngles = new System.Windows.Forms.CheckBox();
+            this.txtLabelBelow = new System.Windows.Forms.TextBox();
+            this.txtLabelAbove = new System.Windows.Forms.TextBox();
             this.tabVStyle = new System.Windows.Forms.TabPage();
             this.flowLPStyleProps = new System.Windows.Forms.FlowLayoutPanel();
             this.pnl_spName = new System.Windows.Forms.Panel();
@@ -196,6 +207,9 @@
             this.tabProperties.SuspendLayout();
             this.tabVertex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numlblpos)).BeginInit();
+            this.tabEdge.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numOutAngle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numInAngle)).BeginInit();
             this.tabVStyle.SuspendLayout();
             this.flowLPStyleProps.SuspendLayout();
             this.pnl_spName.SuspendLayout();
@@ -692,8 +706,10 @@
             this.toolStripSeparator10,
             this.toolStripLabel2,
             this.cmdSelectTool,
+            this.cmdHandTool,
             this.cmdVertexTool,
             this.cmdEdgeTool,
+            this.cmdPathTool,
             this.toolStripSeparator2,
             this.chkUseImgs,
             this.cmdPreview,
@@ -933,6 +949,18 @@
             this.cmdSelectTool.Text = "Select";
             this.cmdSelectTool.Click += new System.EventHandler(this.toolSelector_Click);
             // 
+            // cmdHandTool
+            // 
+            this.cmdHandTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cmdHandTool.Image = ((System.Drawing.Image)(resources.GetObject("cmdHandTool.Image")));
+            this.cmdHandTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdHandTool.Name = "cmdHandTool";
+            this.cmdHandTool.Size = new System.Drawing.Size(23, 22);
+            this.cmdHandTool.Tag = "5";
+            this.cmdHandTool.Text = "toolStripButton6";
+            this.cmdHandTool.ToolTipText = "Hand tool";
+            this.cmdHandTool.Click += new System.EventHandler(this.toolSelector_Click);
+            // 
             // cmdVertexTool
             // 
             this.cmdVertexTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -956,6 +984,18 @@
             this.cmdEdgeTool.Text = "toolStripButton6";
             this.cmdEdgeTool.ToolTipText = "Add edge";
             this.cmdEdgeTool.Click += new System.EventHandler(this.toolSelector_Click);
+            // 
+            // cmdPathTool
+            // 
+            this.cmdPathTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cmdPathTool.Image = ((System.Drawing.Image)(resources.GetObject("cmdPathTool.Image")));
+            this.cmdPathTool.ImageTransparentColor = System.Drawing.Color.White;
+            this.cmdPathTool.Name = "cmdPathTool";
+            this.cmdPathTool.Size = new System.Drawing.Size(23, 22);
+            this.cmdPathTool.Tag = "4";
+            this.cmdPathTool.Text = "Add a path";
+            this.cmdPathTool.ToolTipText = "Add a path (=multiple edges)";
+            this.cmdPathTool.Click += new System.EventHandler(this.toolSelector_Click);
             // 
             // toolStripSeparator2
             // 
@@ -1220,7 +1260,7 @@
             0,
             0,
             0});
-            this.numlblpos.Location = new System.Drawing.Point(82, 143);
+            this.numlblpos.Location = new System.Drawing.Point(80, 143);
             this.numlblpos.Maximum = new decimal(new int[] {
             360,
             0,
@@ -1234,7 +1274,7 @@
             this.numlblpos.Name = "numlblpos";
             this.numlblpos.Size = new System.Drawing.Size(88, 20);
             this.numlblpos.TabIndex = 20;
-            this.numlblpos.ValueChanged += new System.EventHandler(this.changed_VertexProperties);
+            this.numlblpos.ValueChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
             // 
             // txtLabel
             // 
@@ -1242,7 +1282,7 @@
             this.txtLabel.Name = "txtLabel";
             this.txtLabel.Size = new System.Drawing.Size(100, 20);
             this.txtLabel.TabIndex = 19;
-            this.txtLabel.TextChanged += new System.EventHandler(this.changed_VertexProperties);
+            this.txtLabel.TextChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
             this.txtLabel.Leave += new System.EventHandler(this.txtText_Leave);
             // 
             // label11
@@ -1278,11 +1318,20 @@
             this.txtText.Name = "txtText";
             this.txtText.Size = new System.Drawing.Size(106, 20);
             this.txtText.TabIndex = 9;
-            this.txtText.TextChanged += new System.EventHandler(this.changed_VertexProperties);
+            this.txtText.TextChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
             this.txtText.Leave += new System.EventHandler(this.txtText_Leave);
             // 
             // tabEdge
             // 
+            this.tabEdge.Controls.Add(this.numOutAngle);
+            this.tabEdge.Controls.Add(this.numInAngle);
+            this.tabEdge.Controls.Add(this.label20);
+            this.tabEdge.Controls.Add(this.label19);
+            this.tabEdge.Controls.Add(this.label17);
+            this.tabEdge.Controls.Add(this.label16);
+            this.tabEdge.Controls.Add(this.chkUseInOutAngles);
+            this.tabEdge.Controls.Add(this.txtLabelBelow);
+            this.tabEdge.Controls.Add(this.txtLabelAbove);
             this.tabEdge.Location = new System.Drawing.Point(4, 22);
             this.tabEdge.Name = "tabEdge";
             this.tabEdge.Padding = new System.Windows.Forms.Padding(3);
@@ -1290,6 +1339,105 @@
             this.tabEdge.TabIndex = 1;
             this.tabEdge.Text = "Edge";
             this.tabEdge.UseVisualStyleBackColor = true;
+            // 
+            // numOutAngle
+            // 
+            this.numOutAngle.Location = new System.Drawing.Point(71, 75);
+            this.numOutAngle.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numOutAngle.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numOutAngle.Name = "numOutAngle";
+            this.numOutAngle.Size = new System.Drawing.Size(53, 20);
+            this.numOutAngle.TabIndex = 9;
+            this.numOutAngle.ValueChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
+            // 
+            // numInAngle
+            // 
+            this.numInAngle.Location = new System.Drawing.Point(72, 48);
+            this.numInAngle.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numInAngle.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numInAngle.Name = "numInAngle";
+            this.numInAngle.Size = new System.Drawing.Size(52, 20);
+            this.numInAngle.TabIndex = 8;
+            this.numInAngle.ValueChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(27, 77);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(24, 13);
+            this.label20.TabIndex = 7;
+            this.label20.Text = "Out";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(25, 53);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(16, 13);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "In";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(10, 162);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Label below";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(10, 131);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(66, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Label above";
+            // 
+            // chkUseInOutAngles
+            // 
+            this.chkUseInOutAngles.AutoSize = true;
+            this.chkUseInOutAngles.Location = new System.Drawing.Point(20, 25);
+            this.chkUseInOutAngles.Name = "chkUseInOutAngles";
+            this.chkUseInOutAngles.Size = new System.Drawing.Size(111, 17);
+            this.chkUseInOutAngles.TabIndex = 3;
+            this.chkUseInOutAngles.Text = "Use In-Out-angles";
+            this.chkUseInOutAngles.UseVisualStyleBackColor = true;
+            this.chkUseInOutAngles.CheckedChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
+            // 
+            // txtLabelBelow
+            // 
+            this.txtLabelBelow.Location = new System.Drawing.Point(82, 159);
+            this.txtLabelBelow.Name = "txtLabelBelow";
+            this.txtLabelBelow.Size = new System.Drawing.Size(100, 20);
+            this.txtLabelBelow.TabIndex = 5;
+            this.txtLabelBelow.TextChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
+            // 
+            // txtLabelAbove
+            // 
+            this.txtLabelAbove.Location = new System.Drawing.Point(82, 128);
+            this.txtLabelAbove.Name = "txtLabelAbove";
+            this.txtLabelAbove.Size = new System.Drawing.Size(100, 20);
+            this.txtLabelAbove.TabIndex = 4;
+            this.txtLabelAbove.TextChanged += new System.EventHandler(this.changed_VertexOrEdgeProperties);
             // 
             // tabVStyle
             // 
@@ -1331,7 +1479,7 @@
             this.pnl_spName.Name = "pnl_spName";
             this.pnl_spName.Size = new System.Drawing.Size(175, 24);
             this.pnl_spName.TabIndex = 0;
-            this.pnl_spName.Tag = "EV";
+            this.pnl_spName.Tag = "EVU";
             // 
             // label7
             // 
@@ -1358,7 +1506,7 @@
             this.pnl_spLineStyle.Name = "pnl_spLineStyle";
             this.pnl_spLineStyle.Size = new System.Drawing.Size(175, 26);
             this.pnl_spLineStyle.TabIndex = 19;
-            this.pnl_spLineStyle.Tag = "E";
+            this.pnl_spLineStyle.Tag = "EU";
             // 
             // cmbDashStyle
             // 
@@ -1386,7 +1534,7 @@
             this.pnl_spInnerSep.Name = "pnl_spInnerSep";
             this.pnl_spInnerSep.Size = new System.Drawing.Size(175, 25);
             this.pnl_spInnerSep.TabIndex = 1;
-            this.pnl_spInnerSep.Tag = "V";
+            this.pnl_spInnerSep.Tag = "VU";
             // 
             // label5
             // 
@@ -1418,7 +1566,7 @@
             this.pnl_spOuterSep.Name = "pnl_spOuterSep";
             this.pnl_spOuterSep.Size = new System.Drawing.Size(175, 24);
             this.pnl_spOuterSep.TabIndex = 2;
-            this.pnl_spOuterSep.Tag = "V";
+            this.pnl_spOuterSep.Tag = "VU";
             // 
             // label6
             // 
@@ -1450,7 +1598,7 @@
             this.pnl_spMinSize.Name = "pnl_spMinSize";
             this.pnl_spMinSize.Size = new System.Drawing.Size(175, 25);
             this.pnl_spMinSize.TabIndex = 3;
-            this.pnl_spMinSize.Tag = "V";
+            this.pnl_spMinSize.Tag = "VU";
             // 
             // label14
             // 
@@ -1477,7 +1625,7 @@
             this.pnl_spDraw.Name = "pnl_spDraw";
             this.pnl_spDraw.Size = new System.Drawing.Size(175, 30);
             this.pnl_spDraw.TabIndex = 4;
-            this.pnl_spDraw.Tag = "EV";
+            this.pnl_spDraw.Tag = "EVU";
             // 
             // chkDraw
             // 
@@ -1508,7 +1656,7 @@
             this.pnl_spFill.Name = "pnl_spFill";
             this.pnl_spFill.Size = new System.Drawing.Size(175, 26);
             this.pnl_spFill.TabIndex = 5;
-            this.pnl_spFill.Tag = "V";
+            this.pnl_spFill.Tag = "VU";
             // 
             // cmdFill
             // 
@@ -1537,7 +1685,7 @@
             this.pnl_spShowX.Name = "pnl_spShowX";
             this.pnl_spShowX.Size = new System.Drawing.Size(175, 23);
             this.pnl_spShowX.TabIndex = 6;
-            this.pnl_spShowX.Tag = "V";
+            this.pnl_spShowX.Tag = "VU";
             // 
             // chkShowX
             // 
@@ -1558,7 +1706,7 @@
             this.pnl_spExtraFormat.Name = "pnl_spExtraFormat";
             this.pnl_spExtraFormat.Size = new System.Drawing.Size(175, 33);
             this.pnl_spExtraFormat.TabIndex = 7;
-            this.pnl_spExtraFormat.Tag = "EV";
+            this.pnl_spExtraFormat.Tag = "EVU";
             // 
             // label8
             // 
@@ -1584,7 +1732,7 @@
             this.pnl_spShape.Name = "pnl_spShape";
             this.pnl_spShape.Size = new System.Drawing.Size(175, 26);
             this.pnl_spShape.TabIndex = 8;
-            this.pnl_spShape.Tag = "V";
+            this.pnl_spShape.Tag = "VU";
             // 
             // cmbVertexType
             // 
@@ -1612,7 +1760,7 @@
             this.pnl_spLineWidth.Name = "pnl_spLineWidth";
             this.pnl_spLineWidth.Size = new System.Drawing.Size(175, 27);
             this.pnl_spLineWidth.TabIndex = 9;
-            this.pnl_spLineWidth.Tag = "EV";
+            this.pnl_spLineWidth.Tag = "EVU";
             // 
             // numLineWidth
             // 
@@ -1813,6 +1961,10 @@
             this.tabVertex.ResumeLayout(false);
             this.tabVertex.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numlblpos)).EndInit();
+            this.tabEdge.ResumeLayout(false);
+            this.tabEdge.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numOutAngle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numInAngle)).EndInit();
             this.tabVStyle.ResumeLayout(false);
             this.flowLPStyleProps.ResumeLayout(false);
             this.pnl_spName.ResumeLayout(false);
@@ -2008,6 +2160,17 @@
         private System.Windows.Forms.ToolStripMenuItem showStyleRepositoryToolStripMenuItem;
         private System.Windows.Forms.ImageList styleStateImages;
         private Custompanel drawmepanel;
+        private System.Windows.Forms.ToolStripButton cmdPathTool;
+        private System.Windows.Forms.ToolStripButton cmdHandTool;
+        private System.Windows.Forms.NumericUpDown numOutAngle;
+        private System.Windows.Forms.NumericUpDown numInAngle;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox chkUseInOutAngles;
+        private System.Windows.Forms.TextBox txtLabelBelow;
+        private System.Windows.Forms.TextBox txtLabelAbove;
 
     }
 }

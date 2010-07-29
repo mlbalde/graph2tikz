@@ -338,20 +338,44 @@ namespace GraphToTIKZ
             top   = new PointD(pixelperunit * scale * to.x, pixelperunit * scale * to.y);
             
             // adjust fromp/top by taking into account the extend of the source/target vertices
-            PointD t = top - fromp;
-            double l1 = to.getBBRadius(-t), l2 = from.getBBRadius(t);
-            if (l1 + l2 >= 1)
+            PointD tdirect = top - fromp;
+            double l1, l2;
+            if (useinoutangle)
             {
-                top = fromp = fromp + (.5 * t);
-                return;
+                PointD t1 = new PointD(Math.Cos(inangle *2*Math.PI /360), -Math.Sin(inangle *2*Math.PI /360)),
+                       t2 = new PointD(Math.Cos(outangle *2*Math.PI /360), -Math.Sin(outangle *2*Math.PI /360));
+                l1 = to.getBBRadius(t1);
+                l2 = from.getBBRadius(t2);
+                top = top + l1 * t1;
+                fromp = fromp + l2 * t2;
+
+                double cptdist = .25 * (top-fromp).Norm();
+                if (to == from) // tadpole case
+                    cptdist *= 10;
+
+                g.DrawBezier(p, (PointF)fromp, (PointF)(fromp + cptdist * t2), (PointF)(top + cptdist * t1), (PointF)top);
             }
             else
             {
-                top = top - l1 * t;
-                fromp = fromp + l2 * t;
+                l1 = to.getBBRadius(-tdirect);
+                l2 = from.getBBRadius(tdirect);
+                if (l1 + l2 >= 1)
+                {
+                    top = fromp = fromp + (.5 * tdirect);
+                }
+                else
+                {
+                    top = top - l1 * tdirect;
+                    fromp = fromp + l2 * tdirect;
+
+                    g.DrawLine(p, (PointF)fromp, (PointF)top);
+                }
+
+
             }
+
             
-            g.DrawLine(p, (PointF)fromp, (PointF)top);
+            
             // draw the text
             // g.DrawString(text, new Font("Arial", 8), bblack, gettextpos());
 
@@ -360,7 +384,16 @@ namespace GraphToTIKZ
         public override string getTikzString(double cy)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("\\draw[{2}] (v{0})--(v{1});", from.id, to.id, style.name);
+            sb.Append("\\draw["+style.name);
+            if (useinoutangle)
+                sb.AppendFormat(",in={0}, out={1}", inangle, outangle);
+            if (from == to)
+                sb.Append(",loop");
+            sb.AppendFormat("] (v{0}) to (", from.id);
+            if (from == to) 
+               sb.Append(");");
+            else
+                sb.Append("v" + to.id + ");");
             return sb.ToString();
         }
         public static edge[] parseTikzString(string s, Dictionary<string, vertex> verts)

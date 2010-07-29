@@ -50,7 +50,7 @@ namespace GraphToTIKZ
 
             dos = new DrawObjectStyle();
             dos.type = DOType.E;
-            dos.name = "default edge";
+            dos.name = "default_edge";
             dos.ldraw = true;
             dos.draw = Color.Black;
             styles.Add(dos.name, dos);
@@ -62,16 +62,16 @@ namespace GraphToTIKZ
         }
         public void Draw(Graphics g, int pixelperunit, bool useimgs)
         {
-            // draw edges
-            foreach (DrawObject o in objlist.Values)
-            {
-                if (o is edge) 
-                    o.Draw(g, pixelperunit, (float)scale, useimgs);
-            }
             // draw vertices
             foreach (DrawObject o in objlist.Values)
             {
                 if (o is vertex) 
+                    o.Draw(g, pixelperunit, (float)scale, useimgs);
+            }
+            // draw edges
+            foreach (DrawObject o in objlist.Values)
+            {
+                if (o is edge)
                     o.Draw(g, pixelperunit, (float)scale, useimgs);
             }
         }
@@ -222,6 +222,7 @@ namespace GraphToTIKZ
 
                 si.Add(dos.getTikzString());
             }
+            si.Add("every loop/.style={}");
             sb.AppendLine("\\begin{tikzpicture}[scale=" + scale.ToString(Consts.DoubleFormat) + ","); //TODO: cx, cy
             sb.AppendLine(String.Join(",\r\n", si) + "]");
             sb.AppendLine("");
@@ -263,6 +264,44 @@ namespace GraphToTIKZ
         public static RectangleF ConvertTikzPtsToScreenPtsRect(RectangleF r, int pixelperunit)
         {
             return new RectangleF(ConvertTikzPtsToScreenPtsPt(r.Location, pixelperunit), ConvertTikzPtsToScreenPtsSize(r.Size, pixelperunit));
+        }
+
+        /// <summary>
+        /// Loops through all styles of "unknown" type and tries to infer their type.
+        /// </summary>
+        public void InferStyleTypes()
+        {
+            foreach (DrawObjectStyle dos in styles.Values)
+                if (dos.type == DOType.U)
+                {
+                    int vcount = objlist.Values.Count(v => (v is vertex && v.style == dos));
+                    int ecount = objlist.Values.Count(v => (v is edge && v.style == dos));
+
+                    if (vcount == 0 && ecount > 0)
+                        dos.type = DOType.E;
+                    else if (ecount == 0 && vcount > 0)
+                        dos.type = DOType.V;
+                    else
+                    {
+                        // Ask the user what to do
+                        if (MessageBox.Show("Could not infer type (vertex/edge) of style "+dos.name+". Is it a vertex style?", "Could not infer style type",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            dos.type = DOType.V;
+                        else
+                            dos.type = DOType.E; 
+                    }
+
+                }
+        }
+
+        public void CleanUpAfterParsing()
+        {            
+            if (styles.ContainsKey("every loop"))
+                styles.Remove("every loop");
+            InferStyleTypes();
+
+            // Add default styles if there is no edge/vertex style
+            
         }
 
         /// <summary>

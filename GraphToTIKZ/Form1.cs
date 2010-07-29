@@ -28,7 +28,7 @@ namespace GraphToTIKZ
         Stack<TikzGraph> redos = new Stack<TikzGraph>();
         MRUList MRUs = new MRUList(Consts.cMRUFile, Consts.MaxMRU);
 
-        enum cTool {Move=1, AddVert=2, AddEdge=3, Hand=4};
+        enum cTool {Move=1, AddVert=2, AddEdge=3, AddPath=4, Hand=5};
         cTool curTool = cTool.Move;
 
         // when a drag operation is started, contains the relative position of the cursor to the nearest marked vertex (=selvert)
@@ -61,6 +61,9 @@ namespace GraphToTIKZ
         int pixelperunit = base_pixperunit;
         // the size, in tikz units (i.e., cm) of the grid drawn
         double rastersize = .5;
+        Cursor handopencursor = new Cursor("..\\..\\Resources\\handopen.cur");
+        Cursor handclosedcursor = new Cursor("..\\..\\Resources\\handclosed.cur");
+        Point mousepos_bak = new Point(); // saves the cursor position for the hand tool, client coordinates of drawme!
 
         // indicates whether changes (that need to be saved) are made to the graph
         private bool m_lChangesMade = false;
@@ -269,7 +272,7 @@ namespace GraphToTIKZ
                     //else txtText.Text = selvs.First().text;
             }
 
-            if (selvs.Count() == 0)
+            if (seles.Count() == 0)
             {
                 foreach (Control c in tabEdge.Controls)
                 {
@@ -286,15 +289,22 @@ namespace GraphToTIKZ
                 {
                     c.Enabled = true;
                 }
-                if (seles.Count(v => !seles.First().text.Equals(v.text)) > 0)
-                    txtText.Text = "";
-                else txtText.Text = selvs.First().text;
-                if (selvs.Count(v => !selvs.First().label.Equals(v.label)) > 0)
-                    txtLabel.Text = "";
-                else txtLabel.Text = selvs.First().label;
-                //if (selvs.Count(v => !selvs.First().labelangle.Equals(v.labelangle)) > 0)
-                numlblpos.Value = selvs.First().labelangle;
-                //else txtText.Text = selvs.First().text;
+                if (seles.Count(v => (seles.First().abovelabel != v.abovelabel)) > 0)
+                    txtLabelAbove.Text = "";
+                else txtLabelAbove.Text = seles.First().abovelabel;
+                if (seles.Count(v => (seles.First().belowlabel != v.belowlabel)) > 0)
+                    txtLabelBelow.Text = "";
+                else txtLabelBelow.Text = seles.First().belowlabel;
+
+                if (seles.Count(v => (seles.First().useinoutangle != v.useinoutangle)) > 0)
+                    chkUseInOutAngles.CheckState = CheckState.Indeterminate;
+                else
+                {
+                    //chkUseInOutAngles.CheckState = CheckState.Checked;
+                    chkUseInOutAngles.Checked = seles.First().useinoutangle;
+                }
+                numInAngle.Value = seles.First().inangle;
+                numOutAngle.Value = seles.First().outangle;
             }
 
      /*       if (selvert < 0)
@@ -372,9 +382,21 @@ namespace GraphToTIKZ
                         if (!ModifierKeys.HasFlag(Keys.Control))
                             selectTool(cTool.Move);
                         break;
+                    case cTool.AddPath:
+                        BeforeGraphChange();
+                        // create a new vertex at current position
+                        v = AddVertexAt(rasterp);
+                        // in case some vertex was selected->add an edge
+                        if (selvert >= 0)
+                            AddEdge(G.objlist[selvert] as vertex, v);
+                        OnGraphChanged();
+                        drawme.Invalidate();
+                        // select either the new point (default) or leave the old selected (ctrl pressed)
+                        if (!ModifierKeys.HasFlag(Keys.Control))
+                            setselvert(v.id);
+                        break;
                     case cTool.AddEdge:
-                        bool vertexhit = G.vertfromxy(location.X, location.Y, out v);
-                        if (vertexhit || (selvert >=0 && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift) ) ) )
+                        if (G.vertfromxy(location.X, location.Y, out v) )
                         {
                             if (selvert < 0)
                             {
@@ -384,37 +406,11 @@ namespace GraphToTIKZ
                             else
                             {
                                 BeforeGraphChange();
+                                AddEdge(G.objlist[selvert] as vertex, v);
 
-                                // in case ctrl or shift pressed, make a star or path, i.e., add a vertex at mouse position
-                                if (!vertexhit)
-                                {
-                                    v = AddVertexAt(rasterp); 
-                                }
-
-                                // add an edge
-                                edge ed = new edge();
-                                ed.from = G.objlist[selvert] as vertex;
-                                ed.to = v;
-                                // use the currently checked edge style
-                                foreach (ListViewItem lvi in lstStyles.CheckedItems)
-                                    if (lvi.Checked && lvi.Group.Name == "E")
-                                    {
-                                        ed.style = G.styles[lvi.Text];
-                                    }
-                                if (ed.style == null)
-                                    throw new Exception("no style selected");
-                                //if (lstStyles.SelectedItems.Count > 0 && getselstyle().type == DOType.E)
-                                //    ed.style = getselstyle();
-                                //else
-                                //{
-                                //    ed.style = G.GetFirstStyle(DOType.E); //[lstStyles.Items[0].Text]; //TODO:Achtung
-                                //}
-                                //edges.Add(ed);
-                                
-                                G.AddObject(ed);
-                                if (ModifierKeys.HasFlag(Keys.Control)) // make a path
+                                if (ModifierKeys.HasFlag(Keys.Shift)) // make a path
                                     setselvert(v.id);
-                                else if (!ModifierKeys.HasFlag(Keys.Shift))
+                                else if (!ModifierKeys.HasFlag(Keys.Control))
                                     setselvert( -1);
                                     // otherwise just do nothing -> make a star
                                     
@@ -424,9 +420,14 @@ namespace GraphToTIKZ
                         }
                         else
                         {
-                            setselvert(-1);
+                            if (!ModifierKeys.HasFlag(Keys.Control) && !ModifierKeys.HasFlag(Keys.Shift))
+                                setselvert(-1);
                             drawme.Invalidate();
                         }
+                        break;
+                    case cTool.Hand:
+                        drawme.Cursor = handclosedcursor;
+                        mousepos_bak.X = e.X; mousepos_bak.Y = e.Y;
                         break;
                 }
             }
@@ -488,6 +489,8 @@ namespace GraphToTIKZ
                 lUserHasMovedSomething = false;
                 OnGraphChanged();
             }
+            if (curTool == cTool.Hand)
+                drawme.Cursor = handopencursor;
             drawme.Invalidate();
 
         }
@@ -540,6 +543,11 @@ namespace GraphToTIKZ
                 lUserHasMovedSomething = true;
                 drawme.Invalidate();
             }
+            if (curTool == cTool.Hand && e.Button == MouseButtons.Left)
+            {
+                Point p = drawmepanel.AutoScrollPosition;
+                drawmepanel.AutoScrollPosition = new Point(-p.X-e.X+mousepos_bak.X,-p.Y - e.Y+mousepos_bak.Y);
+            }
             // adjust mouse cursor when over selected items
            /* if (G.GetSelCount() >= 0 && curTool == cTool.Move)
             {
@@ -550,6 +558,7 @@ namespace GraphToTIKZ
                 else drawme.Cursor = Cursors.Arrow;
             }
             */
+            
         }
 
         // pos is in screen coordinates, not involving G.scale
@@ -579,6 +588,33 @@ namespace GraphToTIKZ
             */
             G.AddObject(v);
             return v;
+        }
+
+        edge AddEdge(vertex fromv, vertex tov)
+        {
+            // add an edge
+            edge ed = new edge();
+            ed.from = fromv;
+            ed.to = tov;
+            // use the currently checked edge style
+            foreach (ListViewItem lvi in lstStyles.CheckedItems)
+                if (lvi.Checked && lvi.Group.Name == "E")
+                {
+                    ed.style = G.styles[lvi.Text];
+                }
+            if (ed.style == null)
+                throw new Exception("no style selected");
+
+            // for tadpole edge, use in/out angles
+            if (fromv == tov)
+            {
+                ed.useinoutangle = true;
+                ed.inangle = 135;
+                ed.outangle = 45;
+            }
+
+            G.AddObject(ed);
+            return ed;
         }
 
         private void cmdGenCode_Click(object sender, EventArgs e)
@@ -640,7 +676,7 @@ namespace GraphToTIKZ
 
         }
 
-        private void changed_VertexProperties(object sender, EventArgs e)
+        private void changed_VertexOrEdgeProperties(object sender, EventArgs e)
         {
             if (lUpdateSelection) return;
             // Update selection properties
@@ -660,9 +696,17 @@ namespace GraphToTIKZ
                     else if (o is edge)
                     {
                         edge ed = o as edge;
-
+                        if (sender == txtLabelAbove)
+                            ed.abovelabel = txtLabelAbove.Text;
+                        if (sender == txtLabelBelow)
+                            ed.belowlabel = txtLabelBelow.Text;
+                        if (sender == chkUseInOutAngles)
+                            ed.useinoutangle = chkUseInOutAngles.Checked;
+                        if (sender == numInAngle)
+                            ed.inangle = Convert.ToInt32(numInAngle.Value);
+                        if (sender == numOutAngle)
+                            ed.outangle = Convert.ToInt32(numOutAngle.Value);
                     }
-
 
             drawme.Invalidate();
         }
@@ -743,6 +787,7 @@ namespace GraphToTIKZ
             lstStyles.Items.Clear();
             lstStyles.Groups.Add("V", "Vertex Styles");
             lstStyles.Groups.Add("E", "Edge Styles");
+            lstStyles.Groups.Add("U", "Generic Styles");
             foreach (DrawObjectStyle dos in G.styles.Values)
             {
                 //lstStyles.Items.Add(dos.name, dos.name, 0);
@@ -865,6 +910,11 @@ namespace GraphToTIKZ
        
         private void button4_Click_1(object sender, EventArgs e)
         {
+            Point p = drawmepanel.AutoScrollPosition;
+            drawmepanel.AutoScrollPosition = new Point(-p.X+100,-p.Y+100);//p.X + e.X - mousepos_bak.X, p.Y + e.Y - mousepos_bak.Y);
+            //mousepos_bak.X = e.X; mousepos_bak.Y = e.Y;
+
+            return;
             drawme.Focus();
             AddStatusLine("Hallo Welt111", false);
 
@@ -1259,11 +1309,17 @@ namespace GraphToTIKZ
             cmdSelectTool.Checked = (tool == cTool.Move);
             cmdVertexTool.Checked = (tool == cTool.AddVert);
             cmdEdgeTool.Checked = (tool == cTool.AddEdge);
+            cmdPathTool.Checked = (tool == cTool.AddPath);
+            cmdHandTool.Checked = (tool == cTool.Hand);
 
             if (curTool != tool)
             {
                 setselvert(-1);
                 curTool = tool;
+                if (tool == cTool.Hand)
+                    drawme.Cursor = handopencursor;
+                else
+                    drawme.Cursor = Cursors.Default;
                 drawme.Invalidate();
             }
         }
@@ -1440,7 +1496,7 @@ namespace GraphToTIKZ
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            
+            drawme.Invalidate();
         }
 
 

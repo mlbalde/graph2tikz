@@ -8,14 +8,13 @@ not seen
 \begin{tikzpicture}[scale=1,
 vert/.style={draw,outer sep=0,inner sep=0,minimum size=5,fill},
 helper/.style={outer sep=0,inner sep=0,minimum size=5,shape=coordinate},
-default edge/.style={draw,>->},
-temp/.style={draw,outer sep=0,inner sep=0,minimum size=14,shape=circle}]
+default edge/.style={draw},
+every loop/.style={}]
 
 \draw (0,0) rectangle (15,10);
-\node (v0) at (4,8) [vert] {Hallo Welt};
-\node (v1) at (6.512,6.012) [temp] {};
+\node (v0) at (8.5,7) [vert] {};
 
-\draw[default edge] (v1)--(v0);
+\draw[default edge,in=135, out=45,loop] (v0) to ();
 \end{tikzpicture}
 
 \end{document}
