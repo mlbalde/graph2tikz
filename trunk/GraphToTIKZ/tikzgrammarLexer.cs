@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g 2010-07-29 17:05:37
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g 2010-07-29 19:22:22
 
 
 using System;
@@ -9,54 +9,58 @@ using Stack 		= Antlr.Runtime.Collections.StackList;
 
 
 public class tikzgrammarLexer : Lexer {
-    public const int TIKZGRAPH = 36;
-    public const int EXPONENT = 40;
+    public const int TIKZGRAPH = 38;
+    public const int EXPONENT = 43;
     public const int RBR = 14;
+    public const int ST_DASHSTYLE = 32;
+    public const int ST_LINEWIDTH = 31;
     public const int EDGE = 9;
-    public const int OCTAL_ESC = 47;
+    public const int OCTAL_ESC = 50;
     public const int ST_FILL = 27;
-    public const int FLOAT = 38;
     public const int BEGINTP = 5;
-    public const int ID = 37;
+    public const int FLOAT = 40;
+    public const int ID = 39;
     public const int EOF = -1;
     public const int LBR = 13;
     public const int AT = 10;
     public const int RBRR = 16;
-    public const int ESC_SEQ = 43;
-    public const int IN = 32;
-    public const int EVERYLOOP = 24;
+    public const int T__51 = 51;
+    public const int ESC_SEQ = 46;
+    public const int T__52 = 52;
+    public const int IN = 34;
     public const int LPAR = 11;
+    public const int T__53 = 53;
+    public const int EVERYLOOP = 24;
     public const int ENDTP = 6;
-    public const int LOOP = 31;
+    public const int T__54 = 54;
+    public const int LOOP = 33;
     public const int ST_OUTERSEP = 26;
-    public const int COMMENT = 41;
+    public const int COMMENT = 44;
     public const int DEFINECOLOR = 4;
-    public const int T__50 = 50;
     public const int ST_INNERSEP = 25;
     public const int NODE = 7;
-    public const int UN_PTS = 34;
-    public const int T__48 = 48;
-    public const int T__49 = 49;
-    public const int UNICODE_ESC = 46;
+    public const int UN_PTS = 36;
+    public const int UNICODE_ESC = 49;
     public const int STYLESEP = 22;
-    public const int HEX_DIGIT = 45;
+    public const int HEX_DIGIT = 48;
+    public const int INT = 41;
     public const int LBRR = 15;
-    public const int INT = 39;
-    public const int UN_CM = 35;
+    public const int UN_CM = 37;
     public const int COLON = 21;
     public const int ST_DRAW = 28;
     public const int SCALE = 18;
-    public const int WS = 42;
-    public const int LABEL = 23;
+    public const int WS = 45;
+    public const int OUT = 35;
     public const int ST_MINSIZE = 30;
-    public const int OUT = 33;
+    public const int LABEL = 23;
     public const int KOMMA = 17;
     public const int ST_SHAPE = 29;
     public const int EQU = 19;
+    public const int ARROW = 42;
     public const int RPAR = 12;
     public const int SEMIC = 20;
     public const int DRAW = 8;
-    public const int STRING = 44;
+    public const int STRING = 47;
 
     // delegates
     // delegators
@@ -717,6 +721,54 @@ public class tikzgrammarLexer : Lexer {
     }
     // $ANTLR end "ST_MINSIZE"
 
+    // $ANTLR start "ST_LINEWIDTH"
+    public void mST_LINEWIDTH() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            int _type = ST_LINEWIDTH;
+    	int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:34:14: ( 'line width' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:34:16: 'line width'
+            {
+            	Match("line width"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "ST_LINEWIDTH"
+
+    // $ANTLR start "ST_DASHSTYLE"
+    public void mST_DASHSTYLE() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            int _type = ST_DASHSTYLE;
+    	int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:35:14: ( 'dash style' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:35:16: 'dash style'
+            {
+            	Match("dash style"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "ST_DASHSTYLE"
+
     // $ANTLR start "LOOP"
     public void mLOOP() // throws RecognitionException [2]
     {
@@ -724,8 +776,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = LOOP;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:34:6: ( 'loop' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:34:8: 'loop'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:36:6: ( 'loop' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:36:8: 'loop'
             {
             	Match("loop"); 
 
@@ -748,8 +800,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = IN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:35:4: ( 'in' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:35:6: 'in'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:37:4: ( 'in' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:37:6: 'in'
             {
             	Match("in"); 
 
@@ -772,8 +824,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = OUT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:36:5: ( 'out' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:36:7: 'out'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:38:5: ( 'out' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:38:7: 'out'
             {
             	Match("out"); 
 
@@ -796,8 +848,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = UN_PTS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:37:8: ( 'pt' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:37:10: 'pt'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:39:8: ( 'pt' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:39:10: 'pt'
             {
             	Match("pt"); 
 
@@ -820,8 +872,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = UN_CM;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:38:7: ( 'cm' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:38:9: 'cm'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:40:7: ( 'cm' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:40:9: 'cm'
             {
             	Match("cm"); 
 
@@ -837,15 +889,15 @@ public class tikzgrammarLexer : Lexer {
     }
     // $ANTLR end "UN_CM"
 
-    // $ANTLR start "T__48"
-    public void mT__48() // throws RecognitionException [2]
+    // $ANTLR start "T__51"
+    public void mT__51() // throws RecognitionException [2]
     {
     		try
     		{
-            int _type = T__48;
+            int _type = T__51;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:39:7: ( 'rgb' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:39:9: 'rgb'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:41:7: ( 'rgb' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:41:9: 'rgb'
             {
             	Match("rgb"); 
 
@@ -859,17 +911,17 @@ public class tikzgrammarLexer : Lexer {
     	{
         }
     }
-    // $ANTLR end "T__48"
+    // $ANTLR end "T__51"
 
-    // $ANTLR start "T__49"
-    public void mT__49() // throws RecognitionException [2]
+    // $ANTLR start "T__52"
+    public void mT__52() // throws RecognitionException [2]
     {
     		try
     		{
-            int _type = T__49;
+            int _type = T__52;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:40:7: ( '--' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:40:9: '--'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:42:7: ( '--' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:42:9: '--'
             {
             	Match("--"); 
 
@@ -883,17 +935,40 @@ public class tikzgrammarLexer : Lexer {
     	{
         }
     }
-    // $ANTLR end "T__49"
+    // $ANTLR end "T__52"
 
-    // $ANTLR start "T__50"
-    public void mT__50() // throws RecognitionException [2]
+    // $ANTLR start "T__53"
+    public void mT__53() // throws RecognitionException [2]
     {
     		try
     		{
-            int _type = T__50;
+            int _type = T__53;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:41:7: ( 'to' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:41:9: 'to'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:43:7: ( '-' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:43:9: '-'
+            {
+            	Match('-'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "T__53"
+
+    // $ANTLR start "T__54"
+    public void mT__54() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            int _type = T__54;
+    	int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:44:7: ( 'to' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:44:9: 'to'
             {
             	Match("to"); 
 
@@ -907,7 +982,7 @@ public class tikzgrammarLexer : Lexer {
     	{
         }
     }
-    // $ANTLR end "T__50"
+    // $ANTLR end "T__54"
 
     // $ANTLR start "ID"
     public void mID() // throws RecognitionException [2]
@@ -916,8 +991,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = ID;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:145:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:145:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             	if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) 
             	{
@@ -930,7 +1005,7 @@ public class tikzgrammarLexer : Lexer {
             	    Recover(mse);
             	    throw mse;}
 
-            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:145:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             	do 
             	{
             	    int alt1 = 2;
@@ -982,6 +1057,39 @@ public class tikzgrammarLexer : Lexer {
     }
     // $ANTLR end "ID"
 
+    // $ANTLR start "ARROW"
+    public void mARROW() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            int _type = ARROW;
+    	int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:161:8: ( '<' | '>' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:
+            {
+            	if ( input.LA(1) == '<' || input.LA(1) == '>' ) 
+            	{
+            	    input.Consume();
+
+            	}
+            	else 
+            	{
+            	    MismatchedSetException mse = new MismatchedSetException(null,input);
+            	    Recover(mse);
+            	    throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "ARROW"
+
     // $ANTLR start "INT"
     public void mINT() // throws RecognitionException [2]
     {
@@ -989,10 +1097,10 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = INT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:148:5: ( ( '0' .. '9' )+ )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:148:7: ( '0' .. '9' )+
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:164:5: ( ( '0' .. '9' )+ )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:164:7: ( '0' .. '9' )+
             {
-            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:148:7: ( '0' .. '9' )+
+            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:164:7: ( '0' .. '9' )+
             	int cnt2 = 0;
             	do 
             	{
@@ -1008,7 +1116,7 @@ public class tikzgrammarLexer : Lexer {
             	    switch (alt2) 
             		{
             			case 1 :
-            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:148:7: '0' .. '9'
+            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:164:7: '0' .. '9'
             			    {
             			    	MatchRange('0','9'); 
 
@@ -1046,15 +1154,15 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = FLOAT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt9 = 3;
             alt9 = dfa9.Predict(input);
             switch (alt9) 
             {
                 case 1 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:9: ( '0' .. '9' )+
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:9: ( '0' .. '9' )+
                     	int cnt3 = 0;
                     	do 
                     	{
@@ -1070,7 +1178,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt3) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:10: '0' .. '9'
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:10: '0' .. '9'
                     			    {
                     			    	MatchRange('0','9'); 
 
@@ -1090,7 +1198,7 @@ public class tikzgrammarLexer : Lexer {
                     		;	// Stops C# compiler whining that label 'loop3' has no statements
 
                     	Match('.'); 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:25: ( '0' .. '9' )*
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:25: ( '0' .. '9' )*
                     	do 
                     	{
                     	    int alt4 = 2;
@@ -1105,7 +1213,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt4) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:26: '0' .. '9'
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:26: '0' .. '9'
                     			    {
                     			    	MatchRange('0','9'); 
 
@@ -1120,7 +1228,7 @@ public class tikzgrammarLexer : Lexer {
                     	loop4:
                     		;	// Stops C# compiler whining that label 'loop4' has no statements
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:37: ( EXPONENT )?
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:37: ( EXPONENT )?
                     	int alt5 = 2;
                     	int LA5_0 = input.LA(1);
 
@@ -1131,7 +1239,7 @@ public class tikzgrammarLexer : Lexer {
                     	switch (alt5) 
                     	{
                     	    case 1 :
-                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:152:37: EXPONENT
+                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:168:37: EXPONENT
                     	        {
                     	        	mEXPONENT(); 
 
@@ -1144,10 +1252,10 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:153:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:169:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     	Match('.'); 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:153:13: ( '0' .. '9' )+
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:169:13: ( '0' .. '9' )+
                     	int cnt6 = 0;
                     	do 
                     	{
@@ -1163,7 +1271,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt6) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:153:14: '0' .. '9'
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:169:14: '0' .. '9'
                     			    {
                     			    	MatchRange('0','9'); 
 
@@ -1182,7 +1290,7 @@ public class tikzgrammarLexer : Lexer {
                     	loop6:
                     		;	// Stops C# compiler whining that label 'loop6' has no statements
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:153:25: ( EXPONENT )?
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:169:25: ( EXPONENT )?
                     	int alt7 = 2;
                     	int LA7_0 = input.LA(1);
 
@@ -1193,7 +1301,7 @@ public class tikzgrammarLexer : Lexer {
                     	switch (alt7) 
                     	{
                     	    case 1 :
-                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:153:25: EXPONENT
+                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:169:25: EXPONENT
                     	        {
                     	        	mEXPONENT(); 
 
@@ -1206,9 +1314,9 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:154:9: ( '0' .. '9' )+ EXPONENT
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:154:9: ( '0' .. '9' )+
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:9: ( '0' .. '9' )+
                     	int cnt8 = 0;
                     	do 
                     	{
@@ -1224,7 +1332,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt8) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:154:10: '0' .. '9'
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:10: '0' .. '9'
                     			    {
                     			    	MatchRange('0','9'); 
 
@@ -1265,7 +1373,7 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = COMMENT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
             int alt13 = 2;
             int LA13_0 = input.LA(1);
 
@@ -1299,11 +1407,11 @@ public class tikzgrammarLexer : Lexer {
             switch (alt13) 
             {
                 case 1 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                     {
                     	Match("//"); 
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:14: (~ ( '\\n' | '\\r' ) )*
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:14: (~ ( '\\n' | '\\r' ) )*
                     	do 
                     	{
                     	    int alt10 = 2;
@@ -1318,7 +1426,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt10) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:14: ~ ( '\\n' | '\\r' )
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:14: ~ ( '\\n' | '\\r' )
                     			    {
                     			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) 
                     			    	{
@@ -1343,7 +1451,7 @@ public class tikzgrammarLexer : Lexer {
                     	loop10:
                     		;	// Stops C# compiler whining that label 'loop10' has no statements
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:28: ( '\\r' )?
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:28: ( '\\r' )?
                     	int alt11 = 2;
                     	int LA11_0 = input.LA(1);
 
@@ -1354,7 +1462,7 @@ public class tikzgrammarLexer : Lexer {
                     	switch (alt11) 
                     	{
                     	    case 1 :
-                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:158:28: '\\r'
+                    	        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:28: '\\r'
                     	        {
                     	        	Match('\r'); 
 
@@ -1369,11 +1477,11 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:159:9: '/*' ( options {greedy=false; } : . )* '*/'
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:175:9: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     	Match("/*"); 
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:159:14: ( options {greedy=false; } : . )*
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:175:14: ( options {greedy=false; } : . )*
                     	do 
                     	{
                     	    int alt12 = 2;
@@ -1403,7 +1511,7 @@ public class tikzgrammarLexer : Lexer {
                     	    switch (alt12) 
                     		{
                     			case 1 :
-                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:159:42: .
+                    			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:175:42: .
                     			    {
                     			    	MatchAny(); 
 
@@ -1442,8 +1550,8 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = WS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:162:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:162:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:178:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:178:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             	if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n') || input.LA(1) == '\r' || input.LA(1) == ' ' ) 
             	{
@@ -1476,11 +1584,11 @@ public class tikzgrammarLexer : Lexer {
     		{
             int _type = STRING;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:5: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:186:5: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:186:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
             {
             	Match('\"'); 
-            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
+            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:186:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
             	do 
             	{
             	    int alt14 = 3;
@@ -1499,14 +1607,14 @@ public class tikzgrammarLexer : Lexer {
             	    switch (alt14) 
             		{
             			case 1 :
-            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:14: ESC_SEQ
+            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:186:14: ESC_SEQ
             			    {
             			    	mESC_SEQ(); 
 
             			    }
             			    break;
             			case 2 :
-            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:170:24: ~ ( '\\\\' | '\"' )
+            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:186:24: ~ ( '\\\\' | '\"' )
             			    {
             			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!') || (input.LA(1) >= '#' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
             			    	{
@@ -1549,8 +1657,8 @@ public class tikzgrammarLexer : Lexer {
     {
     		try
     		{
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             	if ( input.LA(1) == 'E' || input.LA(1) == 'e' ) 
             	{
@@ -1563,7 +1671,7 @@ public class tikzgrammarLexer : Lexer {
             	    Recover(mse);
             	    throw mse;}
 
-            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:22: ( '+' | '-' )?
+            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:22: ( '+' | '-' )?
             	int alt15 = 2;
             	int LA15_0 = input.LA(1);
 
@@ -1593,7 +1701,7 @@ public class tikzgrammarLexer : Lexer {
 
             	}
 
-            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:33: ( '0' .. '9' )+
+            	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:33: ( '0' .. '9' )+
             	int cnt16 = 0;
             	do 
             	{
@@ -1609,7 +1717,7 @@ public class tikzgrammarLexer : Lexer {
             	    switch (alt16) 
             		{
             			case 1 :
-            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:174:34: '0' .. '9'
+            			    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:34: '0' .. '9'
             			    {
             			    	MatchRange('0','9'); 
 
@@ -1643,8 +1751,8 @@ public class tikzgrammarLexer : Lexer {
     {
     		try
     		{
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:177:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:177:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:193:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:193:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             	if ( (input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'F') || (input.LA(1) >= 'a' && input.LA(1) <= 'f') ) 
             	{
@@ -1672,7 +1780,7 @@ public class tikzgrammarLexer : Lexer {
     {
     		try
     		{
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:181:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:197:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt17 = 3;
             int LA17_0 = input.LA(1);
 
@@ -1727,7 +1835,7 @@ public class tikzgrammarLexer : Lexer {
             switch (alt17) 
             {
                 case 1 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:181:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:197:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     	Match('\\'); 
                     	if ( input.LA(1) == '\"' || input.LA(1) == '\'' || input.LA(1) == '\\' || input.LA(1) == 'b' || input.LA(1) == 'f' || input.LA(1) == 'n' || input.LA(1) == 'r' || input.LA(1) == 't' ) 
@@ -1745,14 +1853,14 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:182:9: UNICODE_ESC
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:198:9: UNICODE_ESC
                     {
                     	mUNICODE_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:183:9: OCTAL_ESC
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:199:9: OCTAL_ESC
                     {
                     	mOCTAL_ESC(); 
 
@@ -1772,7 +1880,7 @@ public class tikzgrammarLexer : Lexer {
     {
     		try
     		{
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt18 = 3;
             int LA18_0 = input.LA(1);
 
@@ -1786,9 +1894,9 @@ public class tikzgrammarLexer : Lexer {
 
                     if ( ((LA18_2 >= '0' && LA18_2 <= '7')) )
                     {
-                        int LA18_4 = input.LA(4);
+                        int LA18_5 = input.LA(4);
 
-                        if ( ((LA18_4 >= '0' && LA18_4 <= '7')) )
+                        if ( ((LA18_5 >= '0' && LA18_5 <= '7')) )
                         {
                             alt18 = 1;
                         }
@@ -1830,25 +1938,25 @@ public class tikzgrammarLexer : Lexer {
             switch (alt18) 
             {
                 case 1 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     	Match('\\'); 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:14: ( '0' .. '3' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:15: '0' .. '3'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:14: ( '0' .. '3' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:15: '0' .. '3'
                     	{
                     		MatchRange('0','3'); 
 
                     	}
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:25: ( '0' .. '7' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:26: '0' .. '7'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:25: ( '0' .. '7' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:26: '0' .. '7'
                     	{
                     		MatchRange('0','7'); 
 
                     	}
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:36: ( '0' .. '7' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:188:37: '0' .. '7'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:36: ( '0' .. '7' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:204:37: '0' .. '7'
                     	{
                     		MatchRange('0','7'); 
 
@@ -1858,18 +1966,18 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:189:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:205:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     	Match('\\'); 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:189:14: ( '0' .. '7' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:189:15: '0' .. '7'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:205:14: ( '0' .. '7' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:205:15: '0' .. '7'
                     	{
                     		MatchRange('0','7'); 
 
                     	}
 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:189:25: ( '0' .. '7' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:189:26: '0' .. '7'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:205:25: ( '0' .. '7' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:205:26: '0' .. '7'
                     	{
                     		MatchRange('0','7'); 
 
@@ -1879,11 +1987,11 @@ public class tikzgrammarLexer : Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:9: '\\\\' ( '0' .. '7' )
+                    // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:206:9: '\\\\' ( '0' .. '7' )
                     {
                     	Match('\\'); 
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:14: ( '0' .. '7' )
-                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:190:15: '0' .. '7'
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:206:14: ( '0' .. '7' )
+                    	// C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:206:15: '0' .. '7'
                     	{
                     		MatchRange('0','7'); 
 
@@ -1906,8 +2014,8 @@ public class tikzgrammarLexer : Lexer {
     {
     		try
     		{
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:195:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:195:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:211:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:211:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             	Match('\\'); 
             	Match('u'); 
@@ -1927,8 +2035,8 @@ public class tikzgrammarLexer : Lexer {
 
     override public void mTokens() // throws RecognitionException 
     {
-        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:8: ( DEFINECOLOR | BEGINTP | ENDTP | NODE | DRAW | EDGE | AT | LPAR | RPAR | LBR | RBR | LBRR | RBRR | KOMMA | SCALE | EQU | SEMIC | COLON | STYLESEP | LABEL | EVERYLOOP | ST_INNERSEP | ST_OUTERSEP | ST_FILL | ST_DRAW | ST_SHAPE | ST_MINSIZE | LOOP | IN | OUT | UN_PTS | UN_CM | T__48 | T__49 | T__50 | ID | INT | FLOAT | COMMENT | WS | STRING )
-        int alt19 = 41;
+        // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:8: ( DEFINECOLOR | BEGINTP | ENDTP | NODE | DRAW | EDGE | AT | LPAR | RPAR | LBR | RBR | LBRR | RBRR | KOMMA | SCALE | EQU | SEMIC | COLON | STYLESEP | LABEL | EVERYLOOP | ST_INNERSEP | ST_OUTERSEP | ST_FILL | ST_DRAW | ST_SHAPE | ST_MINSIZE | ST_LINEWIDTH | ST_DASHSTYLE | LOOP | IN | OUT | UN_PTS | UN_CM | T__51 | T__52 | T__53 | T__54 | ID | ARROW | INT | FLOAT | COMMENT | WS | STRING )
+        int alt19 = 45;
         alt19 = dfa19.Predict(input);
         switch (alt19) 
         {
@@ -2122,98 +2230,126 @@ public class tikzgrammarLexer : Lexer {
                 }
                 break;
             case 28 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:195: LOOP
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:195: ST_LINEWIDTH
+                {
+                	mST_LINEWIDTH(); 
+
+                }
+                break;
+            case 29 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:208: ST_DASHSTYLE
+                {
+                	mST_DASHSTYLE(); 
+
+                }
+                break;
+            case 30 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:221: LOOP
                 {
                 	mLOOP(); 
 
                 }
                 break;
-            case 29 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:200: IN
+            case 31 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:226: IN
                 {
                 	mIN(); 
 
                 }
                 break;
-            case 30 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:203: OUT
+            case 32 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:229: OUT
                 {
                 	mOUT(); 
 
                 }
                 break;
-            case 31 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:207: UN_PTS
+            case 33 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:233: UN_PTS
                 {
                 	mUN_PTS(); 
 
                 }
                 break;
-            case 32 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:214: UN_CM
+            case 34 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:240: UN_CM
                 {
                 	mUN_CM(); 
 
                 }
                 break;
-            case 33 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:220: T__48
-                {
-                	mT__48(); 
-
-                }
-                break;
-            case 34 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:226: T__49
-                {
-                	mT__49(); 
-
-                }
-                break;
             case 35 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:232: T__50
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:246: T__51
                 {
-                	mT__50(); 
+                	mT__51(); 
 
                 }
                 break;
             case 36 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:238: ID
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:252: T__52
+                {
+                	mT__52(); 
+
+                }
+                break;
+            case 37 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:258: T__53
+                {
+                	mT__53(); 
+
+                }
+                break;
+            case 38 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:264: T__54
+                {
+                	mT__54(); 
+
+                }
+                break;
+            case 39 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:270: ID
                 {
                 	mID(); 
 
                 }
                 break;
-            case 37 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:241: INT
+            case 40 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:273: ARROW
+                {
+                	mARROW(); 
+
+                }
+                break;
+            case 41 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:279: INT
                 {
                 	mINT(); 
 
                 }
                 break;
-            case 38 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:245: FLOAT
+            case 42 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:283: FLOAT
                 {
                 	mFLOAT(); 
 
                 }
                 break;
-            case 39 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:251: COMMENT
+            case 43 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:289: COMMENT
                 {
                 	mCOMMENT(); 
 
                 }
                 break;
-            case 40 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:259: WS
+            case 44 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:297: WS
                 {
                 	mWS(); 
 
                 }
                 break;
-            case 41 :
-                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:262: STRING
+            case 45 :
+                // C:\\Users\\thomas\\Documents\\Visual Studio 2010\\Projects\\GraphToTIKZ\\graph2tikz\\GraphToTIKZ\\tikzgrammar.g:1:300: STRING
                 {
                 	mSTRING(); 
 
@@ -2280,65 +2416,70 @@ public class tikzgrammarLexer : Lexer {
 
         override public string Description
         {
-            get { return "151:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );"; }
+            get { return "167:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );"; }
         }
 
     }
 
     const string DFA19_eotS =
-        "\x02\uffff\x02\x1b\x07\uffff\x01\x1b\x04\uffff\x09\x1b\x01\uffff"+
-        "\x01\x1b\x01\uffff\x01\x36\x07\uffff\x02\x1b\x01\x3b\x02\x1b\x02"+
-        "\uffff\x02\x1b\x01\x41\x04\x1b\x01\x46\x01\x47\x01\x1b\x01\x49\x03"+
-        "\uffff\x02\x1b\x01\uffff\x05\x1b\x01\uffff\x01\x52\x03\x1b\x02\uffff"+
-        "\x01\x56\x01\uffff\x01\x57\x04\x1b\x01\x5c\x02\x1b\x01\uffff\x01"+
-        "\x5f\x01\x60\x01\x1b\x02\uffff\x01\x1b\x01\x63\x01\x64\x01\x65\x01"+
-        "\uffff\x02\x1b\x02\uffff\x01\x1b\x06\uffff\x02\x1b\x01\uffff";
+        "\x02\uffff\x02\x1b\x07\uffff\x01\x1b\x04\uffff\x09\x1b\x01\x39"+
+        "\x01\x1b\x02\uffff\x01\x3b\x07\uffff\x02\x1b\x01\x40\x02\x1b\x02"+
+        "\uffff\x03\x1b\x01\x47\x05\x1b\x01\x4d\x01\x4e\x01\x1b\x02\uffff"+
+        "\x01\x50\x03\uffff\x02\x1b\x01\uffff\x06\x1b\x01\uffff\x01\x5a\x04"+
+        "\x1b\x02\uffff\x01\x5f\x01\uffff\x01\x60\x05\x1b\x01\x66\x02\x1b"+
+        "\x01\uffff\x01\x69\x01\x6a\x02\x1b\x02\uffff\x01\x1b\x01\x6e\x01"+
+        "\x6f\x01\x70\x02\uffff\x02\x1b\x03\uffff\x01\x1b\x06\uffff\x02\x1b"+
+        "\x01\uffff";
     const string DFA19_eofS =
-        "\x6b\uffff";
+        "\x76\uffff";
     const string DFA19_minS =
         "\x01\x09\x01\x62\x01\x64\x01\x74\x07\uffff\x01\x63\x03\uffff\x01"+
-        "\x2a\x01\x61\x01\x6e\x01\x75\x01\x69\x01\x72\x01\x69\x01\x74\x01"+
-        "\x6d\x01\x67\x01\uffff\x01\x6f\x01\uffff\x01\x2e\x03\uffff\x01\x65"+
+        "\x2a\x01\x61\x01\x6e\x01\x75\x01\x69\x01\x61\x01\x69\x01\x74\x01"+
+        "\x6d\x01\x67\x01\x2d\x01\x6f\x02\uffff\x01\x2e\x03\uffff\x01\x65"+
         "\x03\uffff\x01\x67\x01\x65\x01\x30\x02\x61\x02\uffff\x01\x62\x01"+
-        "\x6f\x01\x30\x01\x74\x01\x6c\x01\x61\x01\x6e\x02\x30\x01\x62\x01"+
-        "\x30\x03\uffff\x01\x65\x01\x72\x01\uffff\x01\x6c\x01\x70\x01\x65"+
-        "\x01\x70\x01\x65\x01\uffff\x01\x30\x01\x6c\x01\x77\x01\x69\x02\uffff"+
-        "\x01\x30\x01\uffff\x01\x30\x01\x79\x02\x65\x01\x6c\x01\x30\x02\x72"+
-        "\x01\uffff\x02\x30\x01\x6d\x02\uffff\x01\x20\x03\x30\x01\uffff\x02"+
-        "\x20\x02\uffff\x01\x75\x06\uffff\x01\x6d\x01\x20\x01\uffff";
+        "\x6e\x01\x6f\x01\x30\x01\x74\x01\x6c\x01\x61\x01\x73\x01\x6e\x02"+
+        "\x30\x01\x62\x02\uffff\x01\x30\x03\uffff\x01\x65\x01\x72\x01\uffff"+
+        "\x01\x6c\x01\x70\x02\x65\x01\x70\x01\x65\x01\uffff\x01\x30\x01\x6c"+
+        "\x01\x77\x01\x68\x01\x69\x02\uffff\x01\x30\x01\uffff\x01\x30\x01"+
+        "\x79\x02\x65\x01\x6c\x01\x20\x01\x30\x02\x72\x01\uffff\x02\x30\x01"+
+        "\x20\x01\x6d\x02\uffff\x01\x20\x03\x30\x02\uffff\x02\x20\x03\uffff"+
+        "\x01\x75\x06\uffff\x01\x6d\x01\x20\x01\uffff";
     const string DFA19_maxS =
         "\x01\x7d\x01\x6e\x01\x76\x01\x74\x07\uffff\x01\x68\x03\uffff\x01"+
         "\x2f\x01\x6f\x01\x6e\x01\x75\x01\x69\x01\x72\x01\x69\x01\x74\x01"+
-        "\x6d\x01\x67\x01\uffff\x01\x6f\x01\uffff\x01\x65\x03\uffff\x01\x72"+
+        "\x6d\x01\x67\x01\x2d\x01\x6f\x02\uffff\x01\x65\x03\uffff\x01\x72"+
         "\x03\uffff\x01\x67\x01\x65\x01\x7a\x02\x61\x02\uffff\x01\x62\x01"+
-        "\x6f\x01\x7a\x01\x74\x01\x6c\x01\x61\x01\x6e\x02\x7a\x01\x62\x01"+
-        "\x7a\x03\uffff\x01\x65\x01\x72\x01\uffff\x01\x6c\x01\x70\x01\x65"+
-        "\x01\x70\x01\x65\x01\uffff\x01\x7a\x01\x6c\x01\x77\x01\x69\x02\uffff"+
-        "\x01\x7a\x01\uffff\x01\x7a\x01\x79\x02\x65\x01\x6c\x01\x7a\x02\x72"+
-        "\x01\uffff\x02\x7a\x01\x6d\x02\uffff\x01\x20\x03\x7a\x01\uffff\x02"+
-        "\x20\x02\uffff\x01\x75\x06\uffff\x01\x6d\x01\x20\x01\uffff";
+        "\x6e\x01\x6f\x01\x7a\x01\x74\x01\x6c\x01\x61\x01\x73\x01\x6e\x02"+
+        "\x7a\x01\x62\x02\uffff\x01\x7a\x03\uffff\x01\x65\x01\x72\x01\uffff"+
+        "\x01\x6c\x01\x70\x02\x65\x01\x70\x01\x65\x01\uffff\x01\x7a\x01\x6c"+
+        "\x01\x77\x01\x68\x01\x69\x02\uffff\x01\x7a\x01\uffff\x01\x7a\x01"+
+        "\x79\x02\x65\x01\x6c\x01\x20\x01\x7a\x02\x72\x01\uffff\x02\x7a\x01"+
+        "\x20\x01\x6d\x02\uffff\x01\x20\x03\x7a\x02\uffff\x02\x20\x03\uffff"+
+        "\x01\x75\x06\uffff\x01\x6d\x01\x20\x01\uffff";
     const string DFA19_acceptS =
         "\x04\uffff\x01\x08\x01\x09\x01\x0a\x01\x0b\x01\x0c\x01\x0d\x01"+
-        "\x0e\x01\uffff\x01\x10\x01\x11\x01\x12\x0a\uffff\x01\x22\x01\uffff"+
-        "\x01\x24\x01\uffff\x01\x26\x01\x28\x01\x29\x01\uffff\x01\x02\x01"+
-        "\x03\x01\x04\x05\uffff\x01\x13\x01\x27\x0b\uffff\x01\x25\x01\x01"+
-        "\x01\x05\x02\uffff\x01\x07\x05\uffff\x01\x1d\x04\uffff\x01\x1f\x01"+
-        "\x20\x01\uffff\x01\x23\x08\uffff\x01\x1e\x03\uffff\x01\x21\x01\x06"+
-        "\x04\uffff\x01\x1c\x02\uffff\x01\x18\x01\x19\x01\uffff\x01\x15\x01"+
-        "\x0f\x01\x1a\x01\x14\x01\x16\x01\x17\x02\uffff\x01\x1b";
+        "\x0e\x01\uffff\x01\x10\x01\x11\x01\x12\x0c\uffff\x01\x27\x01\x28"+
+        "\x01\uffff\x01\x2a\x01\x2c\x01\x2d\x01\uffff\x01\x02\x01\x03\x01"+
+        "\x04\x05\uffff\x01\x13\x01\x2b\x0c\uffff\x01\x24\x01\x25\x01\uffff"+
+        "\x01\x29\x01\x01\x01\x05\x02\uffff\x01\x07\x06\uffff\x01\x1f\x05"+
+        "\uffff\x01\x21\x01\x22\x01\uffff\x01\x26\x09\uffff\x01\x20\x04\uffff"+
+        "\x01\x23\x01\x06\x04\uffff\x01\x1c\x01\x1e\x02\uffff\x01\x18\x01"+
+        "\x19\x01\x1d\x01\uffff\x01\x15\x01\x0f\x01\x1a\x01\x14\x01\x16\x01"+
+        "\x17\x02\uffff\x01\x1b";
     const string DFA19_specialS =
-        "\x6b\uffff}>";
+        "\x76\uffff}>";
     static readonly string[] DFA19_transitionS = {
-            "\x02\x1e\x02\uffff\x01\x1e\x12\uffff\x01\x1e\x01\uffff\x01"+
-            "\x1f\x05\uffff\x01\x04\x01\x05\x02\uffff\x01\x0a\x01\x19\x01"+
-            "\x1d\x01\x0f\x0a\x1c\x01\x0e\x01\x0d\x01\uffff\x01\x0c\x03\uffff"+
-            "\x1a\x1b\x01\x06\x01\x01\x01\x07\x01\uffff\x01\x1b\x01\uffff"+
-            "\x01\x03\x01\x1b\x01\x17\x01\x14\x01\x02\x01\x13\x02\x1b\x01"+
-            "\x11\x02\x1b\x01\x10\x01\x15\x01\x1b\x01\x12\x01\x16\x01\x1b"+
-            "\x01\x18\x01\x0b\x01\x1a\x06\x1b\x01\x08\x01\uffff\x01\x09",
-            "\x01\x21\x01\uffff\x01\x20\x01\x22\x08\uffff\x01\x23",
-            "\x01\x24\x11\uffff\x01\x25",
-            "\x01\x26",
+            "\x02\x1f\x02\uffff\x01\x1f\x12\uffff\x01\x1f\x01\uffff\x01"+
+            "\x20\x05\uffff\x01\x04\x01\x05\x02\uffff\x01\x0a\x01\x19\x01"+
+            "\x1e\x01\x0f\x0a\x1d\x01\x0e\x01\x0d\x01\x1c\x01\x0c\x01\x1c"+
+            "\x02\uffff\x1a\x1b\x01\x06\x01\x01\x01\x07\x01\uffff\x01\x1b"+
+            "\x01\uffff\x01\x03\x01\x1b\x01\x17\x01\x14\x01\x02\x01\x13\x02"+
+            "\x1b\x01\x11\x02\x1b\x01\x10\x01\x15\x01\x1b\x01\x12\x01\x16"+
+            "\x01\x1b\x01\x18\x01\x0b\x01\x1a\x06\x1b\x01\x08\x01\uffff\x01"+
+            "\x09",
+            "\x01\x22\x01\uffff\x01\x21\x01\x23\x08\uffff\x01\x24",
+            "\x01\x25\x11\uffff\x01\x26",
+            "\x01\x27",
             "",
             "",
             "",
@@ -2346,116 +2487,127 @@ public class tikzgrammarLexer : Lexer {
             "",
             "",
             "",
-            "\x01\x27\x04\uffff\x01\x28",
+            "\x01\x28\x04\uffff\x01\x29",
             "",
             "",
             "",
-            "\x01\x2a\x03\uffff\x01\x29\x01\x2a",
-            "\x01\x2b\x0d\uffff\x01\x2c",
-            "\x01\x2d",
-            "\x01\x2e",
+            "\x01\x2b\x03\uffff\x01\x2a\x01\x2b",
+            "\x01\x2c\x07\uffff\x01\x2d\x05\uffff\x01\x2e",
             "\x01\x2f",
             "\x01\x30",
             "\x01\x31",
-            "\x01\x32",
-            "\x01\x33",
+            "\x01\x33\x10\uffff\x01\x32",
             "\x01\x34",
-            "",
             "\x01\x35",
-            "",
-            "\x01\x1d\x01\uffff\x0a\x1c\x0b\uffff\x01\x1d\x1f\uffff\x01"+
-            "\x1d",
-            "",
-            "",
-            "",
-            "\x01\x37\x0c\uffff\x01\x38",
-            "",
-            "",
-            "",
-            "\x01\x39",
+            "\x01\x36",
+            "\x01\x37",
+            "\x01\x38",
             "\x01\x3a",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "\x01\x3c",
-            "\x01\x3d",
+            "",
+            "",
+            "\x01\x1e\x01\uffff\x0a\x1d\x0b\uffff\x01\x1e\x1f\uffff\x01"+
+            "\x1e",
+            "",
+            "",
+            "",
+            "\x01\x3c\x0c\uffff\x01\x3d",
+            "",
             "",
             "",
             "\x01\x3e",
             "\x01\x3f",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x0d"+
-            "\x1b\x01\x40\x0c\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x01\x41",
             "\x01\x42",
+            "",
+            "",
             "\x01\x43",
             "\x01\x44",
             "\x01\x45",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x0d"+
+            "\x1b\x01\x46\x0c\x1b",
             "\x01\x48",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "",
-            "",
-            "",
+            "\x01\x49",
             "\x01\x4a",
             "\x01\x4b",
-            "",
             "\x01\x4c",
-            "\x01\x4d",
-            "\x01\x4e",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
             "\x01\x4f",
-            "\x01\x50",
             "",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x04"+
-            "\x1b\x01\x51\x15\x1b",
+            "",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "",
+            "",
+            "",
+            "\x01\x51",
+            "\x01\x52",
+            "",
             "\x01\x53",
             "\x01\x54",
             "\x01\x55",
-            "",
-            "",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
+            "\x01\x56",
+            "\x01\x57",
             "\x01\x58",
-            "\x01\x59",
-            "\x01\x5a",
+            "",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x04"+
+            "\x1b\x01\x59\x15\x1b",
             "\x01\x5b",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
+            "\x01\x5c",
             "\x01\x5d",
             "\x01\x5e",
             "",
+            "",
             "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
             "\x1b",
+            "",
             "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
             "\x1b",
             "\x01\x61",
-            "",
-            "",
             "\x01\x62",
+            "\x01\x63",
+            "\x01\x64",
+            "\x01\x65",
             "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
             "\x1b",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
-            "\x1b",
-            "",
-            "\x01\x66",
             "\x01\x67",
-            "",
-            "",
             "\x01\x68",
             "",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x01\x6b",
+            "\x01\x6c",
+            "",
+            "",
+            "\x01\x6d",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "\x0a\x1b\x07\uffff\x1a\x1b\x04\uffff\x01\x1b\x01\uffff\x1a"+
+            "\x1b",
+            "",
+            "",
+            "\x01\x71",
+            "\x01\x72",
+            "",
+            "",
+            "",
+            "\x01\x73",
             "",
             "",
             "",
             "",
             "",
-            "\x01\x69",
-            "\x01\x6a",
+            "",
+            "\x01\x74",
+            "\x01\x75",
             ""
     };
 
@@ -2485,7 +2637,7 @@ public class tikzgrammarLexer : Lexer {
 
         override public string Description
         {
-            get { return "1:1: Tokens : ( DEFINECOLOR | BEGINTP | ENDTP | NODE | DRAW | EDGE | AT | LPAR | RPAR | LBR | RBR | LBRR | RBRR | KOMMA | SCALE | EQU | SEMIC | COLON | STYLESEP | LABEL | EVERYLOOP | ST_INNERSEP | ST_OUTERSEP | ST_FILL | ST_DRAW | ST_SHAPE | ST_MINSIZE | LOOP | IN | OUT | UN_PTS | UN_CM | T__48 | T__49 | T__50 | ID | INT | FLOAT | COMMENT | WS | STRING );"; }
+            get { return "1:1: Tokens : ( DEFINECOLOR | BEGINTP | ENDTP | NODE | DRAW | EDGE | AT | LPAR | RPAR | LBR | RBR | LBRR | RBRR | KOMMA | SCALE | EQU | SEMIC | COLON | STYLESEP | LABEL | EVERYLOOP | ST_INNERSEP | ST_OUTERSEP | ST_FILL | ST_DRAW | ST_SHAPE | ST_MINSIZE | ST_LINEWIDTH | ST_DASHSTYLE | LOOP | IN | OUT | UN_PTS | UN_CM | T__51 | T__52 | T__53 | T__54 | ID | ARROW | INT | FLOAT | COMMENT | WS | STRING );"; }
         }
 
     }

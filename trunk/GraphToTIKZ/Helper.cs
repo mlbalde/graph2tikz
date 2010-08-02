@@ -160,8 +160,8 @@ namespace GraphToTIKZ
         }
         public static TikzDashStyle TikzDashStyleFromString(string s)
         {
-            // TODO
-            return TikzDashStyle.solid;
+            return (TikzDashStyle)Enum.Parse(typeof(TikzDashStyle), s, true);
+            //return TikzDashStyle.solid;
         }
     }
 

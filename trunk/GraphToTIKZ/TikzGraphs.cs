@@ -295,14 +295,23 @@ namespace GraphToTIKZ
         }
 
         public void CleanUpAfterParsing()
-        {            
+        {
             if (styles.ContainsKey("every loop"))
                 styles.Remove("every loop");
             InferStyleTypes();
 
             // Add default styles if there is no edge/vertex style
+            // TODO
+
+            // Infer the graphs size
+            cx = objlist.Values.OfType<vertex>().Max(v => v.x) + 1;
+            cy = objlist.Values.OfType<vertex>().Max(v => v.y) + 1;
             
+            // convert vertex coordinates to upper left centered TODO
+            foreach (vertex v in objlist.Values.OfType<vertex>())
+                v.y = cy - v.y;
         }
+
 
         /// <summary>
         /// Obtains the object at position (x,y), in pixel coordinates.

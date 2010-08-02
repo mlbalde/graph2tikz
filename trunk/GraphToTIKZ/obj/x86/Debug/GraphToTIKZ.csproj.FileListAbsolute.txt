@@ -41,3 +41,7 @@ C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\Gra
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.Resource1.resources
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\GraphToTIKZ.exe.manifest
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\bin\Debug\GraphToTIKZ.application
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.exe.manifest
+C:\Users\thomas\Documents\Visual Studio 2010\Projects\GraphToTIKZ\graph2tikz\GraphToTIKZ\obj\x86\Debug\GraphToTIKZ.application

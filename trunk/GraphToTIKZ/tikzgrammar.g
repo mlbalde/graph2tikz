@@ -101,7 +101,7 @@ styleopt [DrawObjectStyle dos]
 	|	ST_SHAPE EQU ID { dos.shape = (vshape)Enum.Parse(typeof(vshape),$ID.text); dos.type = DOType.V; }
 	|	ST_MINSIZE EQU INT UN_PTS? { dos.minimumsize=Int32.Parse($INT.text); dos.type = DOType.V; }
 	|	arrowstyleopt[dos]
-	|	ST_LINEWIDTH EQU FLOAT UN_PTS? { dos.linewidth = (float)Double.Parse($FLOAT.text); }
+	|	ST_LINEWIDTH EQU FLOAT UN_PTS? { dos.LineWidth = (float)Double.Parse($FLOAT.text); }
 	|	ST_DASHSTYLE EQU ID { dos.dashstyle = Helper.TikzDashStyleFromString($ID.text); }
 	;
 arrowstyleopt [DrawObjectStyle dos]

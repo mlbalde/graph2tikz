@@ -330,7 +330,11 @@ namespace GraphToTIKZ
             //p.StartCap = LineCap.Triangle;
             //p.EndCap = LineCap.ArrowAnchor;
             if (style.fromTip != TikzArrowTip.none)
-                p.CustomStartCap = LineCapBuilder.TikzTipToLineCap[(int)style.fromTip];
+            {
+                // invert the tip first, since windows uses a different convention for the direction
+                TikzArrowTip othertip = (style.fromTip == TikzArrowTip.leftarrow ? TikzArrowTip.rightarrow : TikzArrowTip.leftarrow);
+                p.CustomStartCap = LineCapBuilder.TikzTipToLineCap[(int)othertip];
+            }
             if (style.toTip != TikzArrowTip.none)
                 p.CustomEndCap = LineCapBuilder.TikzTipToLineCap[(int)style.toTip];
 

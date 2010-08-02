@@ -5,16 +5,29 @@
 \mathindent0cm \parindent0cm
 not seen
 \vfill
+\definecolor{color2550128}{rgb}{0.99609375,0,0.5}
 \begin{tikzpicture}[scale=1,
-vert/.style={draw,outer sep=0,inner sep=0,minimum size=5,fill},
+vert/.style={draw=color2550128,outer sep=0,inner sep=0,minimum size=5,shape=circle,fill},
 helper/.style={outer sep=0,inner sep=0,minimum size=5,shape=coordinate},
-default edge/.style={draw},
+default_edge/.style={draw,->},
 every loop/.style={}]
 
 \draw (0,0) rectangle (15,10);
-\node (v0) at (8.5,7) [vert] {};
+\node (v0) at (1.5,7.5) [vert] {};
+\node (v1) at (4.5,5.5) [vert] {};
+\node (v3) at (7,7) [vert] {};
+\node (v5) at (7.5,8.5) [vert,label=0:$\pm \sqrt{2}$] {};
+\node (v7) at (4,7) [vert] {};
+\node (v9) at (3.5,8.5) [vert] {};
 
-\draw[default edge,in=135, out=45,loop] (v0) to ();
+\draw[default_edge] (v0) to (v1);
+\draw[default_edge] (v1) to (v3);
+\draw[default_edge] (v3) to (v5);
+\draw[default_edge] (v5) to (v7);
+\draw[default_edge] (v7) to (v9);
+\draw[default_edge] (v7) to (v1);
+\draw[default_edge] (v7) to (v0);
+\draw[default_edge] (v7) to (v3);
 \end{tikzpicture}
 
 \end{document}
