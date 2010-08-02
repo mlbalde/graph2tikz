@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.drawmepanel = new GraphToTIKZ.Custompanel();
             this.tabControl3 = new Dotnetrix.Controls.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.txtStatus = new System.Windows.Forms.RichTextBox();
@@ -193,7 +194,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.numHeight = new System.Windows.Forms.NumericUpDown();
-            this.drawmepanel = new GraphToTIKZ.Custompanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -255,6 +255,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(690, 540);
             this.splitContainer1.SplitterDistance = 412;
             this.splitContainer1.TabIndex = 4;
+            // 
+            // drawmepanel
+            // 
+            this.drawmepanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawmepanel.AutoScroll = true;
+            this.drawmepanel.Location = new System.Drawing.Point(0, 0);
+            this.drawmepanel.Name = "drawmepanel";
+            this.drawmepanel.Size = new System.Drawing.Size(690, 414);
+            this.drawmepanel.TabIndex = 0;
             // 
             // tabControl3
             // 
@@ -1911,17 +1922,6 @@
             this.numHeight.Size = new System.Drawing.Size(43, 20);
             this.numHeight.TabIndex = 11;
             this.numHeight.ValueChanged += new System.EventHandler(this.change_GraphProperties);
-            // 
-            // drawmepanel
-            // 
-            this.drawmepanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.drawmepanel.AutoScroll = true;
-            this.drawmepanel.Location = new System.Drawing.Point(0, 0);
-            this.drawmepanel.Name = "drawmepanel";
-            this.drawmepanel.Size = new System.Drawing.Size(690, 414);
-            this.drawmepanel.TabIndex = 0;
             // 
             // Form1
             // 
