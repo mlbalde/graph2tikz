@@ -1540,7 +1540,7 @@ namespace GraphToTIKZ
             if (e.Label == null)
                 return;
 
-            string cNew = e.Label, cOld = lstStyles.Items[e.Item].Text;
+            string cNew = e.Label.Trim(), cOld = lstStyles.Items[e.Item].Text;
             if (cNew == "")
             {
                 MessageBox.Show("Invalid style name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
