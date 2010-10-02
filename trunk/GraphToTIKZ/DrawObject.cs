@@ -265,7 +265,7 @@ namespace GraphToTIKZ
             sb.AppendFormat("\\node (v{0}) at ({1:G4},{2:G4}) [{3}", new object[] { id, x, cy - y, style.name });
 
             if (label != "")
-                sb.Append(",label=" + labelangle + ":" + label);
+                sb.Append(",label=" + labelangle + ":{" + label+"}");
 
             sb.Append("] {" + text + "};");
             return sb.ToString();
@@ -515,7 +515,8 @@ namespace GraphToTIKZ
             if (LineWidth != 0)
                 si.Add("line width=" + LineWidth);
             if (dashstyle != TikzDashStyle.solid)
-                si.Add("dash style=" + dashstyle.ToString());
+                si.Add(dashstyle.ToString());
+                //si.Add("dash style=" + dashstyle.ToString());
             
             if (extraformat != "")
                 si.Add(extraformat);
