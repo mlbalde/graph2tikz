@@ -61,8 +61,8 @@ namespace GraphToTIKZ
         int pixelperunit = base_pixperunit;
         // the size, in tikz units (i.e., cm) of the grid drawn
         double rastersize = .5;
-        Cursor handopencursor = new Cursor("..\\..\\Resources\\handopen.cur");
-        Cursor handclosedcursor = new Cursor("..\\..\\Resources\\handclosed.cur");
+        Cursor handopencursor;// = new Cursor("..\\..\\Resources\\handopen.cur");
+        Cursor handclosedcursor;// = new Cursor("..\\..\\Resources\\handclosed.cur");
         Point mousepos_bak = new Point(); // saves the cursor position for the hand tool, client coordinates of drawme!
 
         // indicates whether changes (that need to be saved) are made to the graph
@@ -171,6 +171,9 @@ namespace GraphToTIKZ
 
         public Form1()
         {
+            handclosedcursor = new Cursor(GetType(), "Resources.handclosed.cur");
+            handopencursor = new Cursor(GetType(), "Resources.handopen.cur");
+
             InitializeComponent();
             drawme = new myControl();
             drawme.BackColor = Color.White;
