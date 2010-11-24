@@ -50,10 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C168E9411B1C80D4F6F6FE9731B738B93DD8292A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FA9627E313D2A4214262315F3B82716E904813BF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>GraphToTIKZ_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>GraphToTIKZ_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -63,20 +63,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime">
-      <HintPath>..\..\..\..\..\Desktop\antlr\bin\net-2.0\antlr.runtime.dll</HintPath>
+      <HintPath>antlr\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\..\..\..\Desktop\antlr\bin\net-2.0\Antlr3.Runtime.dll</HintPath>
+      <HintPath>antlr\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Utility">
-      <HintPath>..\..\..\..\..\Desktop\antlr\bin\net-2.0\Antlr3.Utility.dll</HintPath>
+      <HintPath>antlr\Antlr3.Utility.dll</HintPath>
     </Reference>
     <Reference Include="Dotnetrix.TabControl">
-      <HintPath>..\Dotnetrix.TabControl.dll</HintPath>
+      <HintPath>antlr\Dotnetrix.TabControl.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="StringTemplate">
-      <HintPath>..\..\..\..\..\Desktop\antlr\bin\net-2.0\StringTemplate.dll</HintPath>
+      <HintPath>antlr\StringTemplate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -156,6 +156,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="GraphToTIKZ_1_TemporaryKey.pfx" />
     <None Include="GraphToTIKZ_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
