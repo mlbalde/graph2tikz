@@ -31,6 +31,9 @@ namespace GraphToTIKZ
 
         public TikzGraph()
         {
+            //make sure that double to string is converted with decimal point (not comma!)
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+
             // Add the standard styles
             DrawObjectStyle dos = new DrawObjectStyle();
             dos.type = DOType.V;

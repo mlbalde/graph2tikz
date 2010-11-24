@@ -1153,11 +1153,38 @@ namespace GraphToTIKZ
             //procPdfLatex.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             procPdfLatex.StartInfo.Arguments = "-quiet "+Consts.cTempFile + ".tex";
             AddStatusLine("Compiling document for preview: " + procPdfLatex.StartInfo.FileName + " " + procPdfLatex.StartInfo.Arguments);
-            if (File.Exists(procPdfLatex.StartInfo.FileName))
+
+            if (File.Exists(GetFullPath(procPdfLatex.StartInfo.FileName)))
                 procPdfLatex.Start();
             else
                 MessageBox.Show("pdflatex not found! please install latex compiler (e.g. miktex)", "latex compiler not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         
+        }
+
+        public static string GetFullPath(string fileName)
+        {
+            if (File.Exists(fileName))
+                return Path.GetFullPath(fileName);
+            if (File.Exists(fileName+".exe"))
+                return Path.GetFullPath(fileName + ".exe");
+            if (File.Exists(fileName + ".bat"))
+                return Path.GetFullPath(fileName + ".bat") ;
+
+            //string pwd = Directory.GetCurrentDirectory();
+
+            var values = Environment.GetEnvironmentVariable("PATH");
+            foreach (var path in values.Split(';'))
+            {
+                var fullPath = Path.Combine(path, fileName);
+                if (File.Exists(fullPath))
+                    return fullPath;
+                if (File.Exists(fullPath+".exe"))
+                    return fullPath + ".exe";
+                if (File.Exists(fullPath + ".bat"))
+                    return fullPath + ".bat";                
+            }
+            //pwd += "string";
+            return null;
         }
 
         private void cmdPreview_Click(object sender, EventArgs e)
@@ -1210,13 +1237,16 @@ namespace GraphToTIKZ
         {
             if (!lprocMuPdfStartedOnce || procMuPdf.HasExited)
             {
-                procMuPdf.StartInfo.Arguments = Consts.cTempFile + ".pdf";                
-                if (File.Exists(procMuPdf.StartInfo.FileName))
+                procMuPdf.StartInfo.Arguments = Consts.cTempFile + ".pdf";
+                if (File.Exists(GetFullPath(procMuPdf.StartInfo.FileName)))
+                {
                     procMuPdf.Start();
+                    lprocMuPdfStartedOnce = true;
+                }
                 else
                     MessageBox.Show("MuPdf not found! please place in same folder as graphtotikz", "mupdf not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         
-                lprocMuPdfStartedOnce = true;
+                
             }
             else
             {
